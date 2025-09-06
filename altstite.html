@@ -1,0 +1,228 @@
+<!-- Код предыдущих разделов остается без изменений до секции отзывов -->
+
+<section id="reviews">
+    <h2>Отзывы наших клиентов</h2>
+    <div class="reviews-container">
+        <div class="reviews" id="reviews">
+            <!-- Отзывы будут сгенерированы через JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- Остальной код без изменений -->
+
+<script>
+    // Улучшенные данные для отзывов (более естественные)
+    const reviewsData = [
+        {
+            name: "Александр Петров",
+            date: "15 сентября 2023",
+            content: "Приобрел NFT Snoop Dogg на этой платформе. Процесс был простым и понятным, поддержка ответила на все вопросы. Особенно порадовала быстрая передача токена в мой кошелек.",
+            nft: "Snoop Dogg NFT",
+            rating: 5,
+            image: "АП"
+        },
+        {
+            name: "Мария Иванова",
+            date: "12 сентября 2023",
+            content: "Долго выбирала платформу для покупки первого NFT и не ошиблась с NFT Galaxy! Интерфейс интуитивно понятный, а коллекции действительно качественные. Теперь рекомендую всем друзьям.",
+            nft: "Обезьяна NFT",
+            rating: 4,
+            image: "МИ"
+        },
+        {
+            name: "Дмитрий Соколов",
+            date: "10 сентября 2023",
+            content: "Участвовал в розыгрыше и выиграл скидку 15%! Использовал ее для покупки Gold Pepe. Транзакция прошла быстро, никаких проблем не возникло. Отличная платформа с честными конкурсами.",
+            nft: "Gold Pepe",
+            rating: 5,
+            image: "ДС"
+        },
+        {
+            name: "Ольга Кузнецова",
+            date: "8 сентября 2023",
+            content: "Как коллекционер с опытом, могу сказать, что у NFT Galaxy одни из лучших условий на рынке. Низкие комиссии, регулярные обновления и отличная техподдержка.",
+            nft: "Космический NFT",
+            rating: 5,
+            image: "ОК"
+        },
+        {
+            name: "Иван Сидоров",
+            date: "5 сентября 2023",
+            content: "Сначала сомневался, но решил попробовать купить недорогой NFT. Процесс оказался намного проще, чем я думал! Теперь планирую пополнить коллекцию.",
+            nft: "Santa Hat",
+            rating: 4,
+            image: "ИС"
+        },
+        {
+            name: "Екатерина Васнецова",
+            date: "3 сентября 2023",
+            content: "Отличная платформа для начинающих! Много обучающих материалов и responsive поддержка. Купила свой первый NFT и очень довольна.",
+            nft: "Snoop Dogg NFT",
+            rating: 5,
+            image: "ЕВ"
+        },
+        {
+            name: "Сергей Николаев",
+            date: "1 сентября 2023",
+            content: "Пользусь платформой несколько месяцев. Нравится регулярное обновление коллекций и честные условия конкурсов. Недавно выиграл билет на эксклюзивный дроп!",
+            nft: "Обезьяна NFT",
+            rating: 4,
+            image: "СН"
+        },
+        {
+            name: "Анна Орлова",
+            date: "29 августа 2023",
+            content: "Перешла с другой платформы и не пожалела! Здесь действительно чувствуется забота о пользователях. Техническая поддержка отвечает быстро и по делу.",
+            nft: "Gold Pepe",
+            rating: 5,
+            image: "АО"
+        }
+    ];
+
+    // Генерация естественных отзывов
+    function generateReviews() {
+        const reviewsContainer = document.getElementById('reviews');
+        let reviewsHTML = '';
+        
+        reviewsData.forEach(review => {
+            reviewsHTML += `
+                <div class="review">
+                    <div class="review-header">
+                        <div class="avatar">${review.image}</div>
+                        <div class="user-info">
+                            <h3>${review.name}</h3>
+                            <p>${review.date}</p>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p>${review.content}</p>
+                        <span class="review-nft">Куплен: ${review.nft}</span>
+                    </div>
+                    <div class="rating">
+                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                    </div>
+                </div>
+            `;
+        });
+        
+        reviewsContainer.innerHTML = reviewsHTML;
+    }
+
+    // Улучшенные данные для форума (более естественные обсуждения)
+    let forumPosts = [
+        {
+            id: 1,
+            title: "С чего начать новичку в NFT?",
+            content: "Всем привет! Я только начинаю погружаться в мир NFT и хотел бы узнать с чего лучше начать. Какие платформы посоветуете для первых покупок? На что обращать внимание при выборе первого NFT?",
+            author: "Алексей Новый",
+            date: "2023-09-15",
+            tags: ["новички", "советы", "обучение"],
+            category: "newbies",
+            comments: [
+                {
+                    author: "Ольга Коллекционер",
+                    content: "Привет! Советую начать с изучения основ блокчейна и выбора надежного кошелька. Из платформ для начала лучше всего подходит NFT Galaxy - низкие комиссии и интуитивный интерфейс.",
+                    date: "2023-09-15"
+                },
+                {
+                    author: "Максим Инвестор",
+                    content: "Согласен с Ольгой. Добавлю, что сначала лучше покупать недорогие NFT от проверенных создателей, чтобы понять механику. И всегда проверяйте контракт на наличие scam!",
+                    date: "2023-09-15"
+                }
+            ],
+            likes: 12,
+            views: 124
+        },
+        {
+            id: 2,
+            title: "Какие NFT коллекции будут перспективными в 2024?",
+            content: "По вашему мнению, какие направления и коллекции NFT будут наиболее перспективными в следующем году? Стоит ли обращать внимание на AI-генерируемое искусство или лучше сосредоточиться на established проектах?",
+            author: "Дмитрий Аналитик",
+            date: "2023-09-12",
+            tags: ["коллекции", "тренды", "2024"],
+            category: "collections",
+            comments: [
+                {
+                    author: "Арина Крипто",
+                    content: "Я бы посоветовала обратить внимание на проекты, связанные с utility NFT - где токены дают реальные benefits, а не просто картинки. Также перспективным выглядит направление NFT для игровой индустрии.",
+                    date: "2023-09-13"
+                }
+            ],
+            likes: 8,
+            views: 89
+        },
+        {
+            id: 3,
+            title: "Личный опыт: как я заработал на NFT trading",
+            content: "Хочу поделиться своим опытом заработка на торговле NFT. Основные стратегии, которые работают для меня: флиппинг новых дропов, арбитраж между платформами и долгосрочное инвестирование в перспективные проекты. У кого есть опыт - делитесь!",
+            author: "Сергей Трейдер",
+            date: "2023-09-08",
+            tags: ["заработок", "трейдинг", "стратегии"],
+            category: "trading",
+            comments: [
+                {
+                    author: "Виктория Инвестор",
+                    content: "Интересный опыт! Я тоже занимаюсь флиппингом, но сосредоточена в основном на gaming NFT. За последние 3 месяца доходность около 40%, но есть и риски конечно.",
+                    date: "2023-09-09"
+                }
+            ],
+            likes: 15,
+            views: 67
+        },
+        {
+            id: 4,
+            title: "Обновление платформы - новый функционал",
+            content: "Друзья, на следующей неделе запускаем долгожданное обновление! Появятся: расширенные возможности для создания коллекций, улучшенный маркетплейс и система уведомлений о новых дропах. Следите за анонсами!",
+            author: "Администратор",
+            date: "2023-09-05",
+            tags: ["новости", "анонсы", "обновления"],
+            category: "news",
+            comments: [
+                {
+                    author: "Артем Постоянный",
+                    content: "Отличные новости! Особенно жду улучшений маркетплейса. current UI иногда тормозит при большом количестве лотов.",
+                    date: "2023-09-06"
+                }
+            ],
+            likes: 20,
+            views: 42
+        }
+    ];
+
+    // Инициализация при загрузке страницы
+    window.addEventListener('DOMContentLoaded', function() {
+        generateReviews();
+        
+        // Добавляем анимации к элементам
+        const elements = document.querySelectorAll('.nft-card, .fact, .guarantee, .gift-card');
+        elements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.1}s`;
+            element.classList.add('float');
+        });
+        
+        // Проверяем, вошел ли пользователь
+        const userData = localStorage.getItem('tg_user');
+        if (userData) {
+            const user = JSON.parse(userData);
+            document.getElementById('user-auth').style.display = 'none';
+            document.getElementById('user-status').style.display = 'flex';
+            document.getElementById('username').textContent = user.username;
+            document.getElementById('create-post-btn').style.display = 'block';
+        }
+        
+        // Загружаем посты
+        renderPosts();
+        
+        // Добавляем обработчики для вкладок форума
+        document.querySelectorAll('.forum-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.forum-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderPosts();
+            });
+        });
+    });
+
+    // Остальные функции (spinWheel, activatePromo, participateContest и т.д.) остаются без изменений
+</script>
