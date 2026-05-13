@@ -693,4 +693,43 @@ document.querySelectorAll(".tab").forEach(t => {
         if (el) el.classList.add("active");
         if (t.dataset.page === "mining") startMining();
         else stopMining();
-        if (t.dataset.page === "top")
+        if (t.dataset.page === "top") loadTop();
+    });
+});
+
+// --- Start ---
+if (uid) {
+    fetch(`${API}/user?uid=${uid}`).then(async r => {
+        if (r.ok) {
+            loadFromServer(await r.json());
+            loaded = true;
+            updateAll(); renderAssets(); renderBoosts(); loadTop(); applyTheme();
+        } else {
+            document.getElementById("overlay").classList.remove("hidden");
+        }
+    });
+} else {
+    uid = "test_" + Date.now();
+    document.getElementById("overlay").classList.remove("hidden");
+}
+
+// --- Passive ---
+setInterval(() => {
+    if (incomePerHour > 0 && loaded) {
+        balance += incomePerHour/360;
+        totalEarned += incomePerHour/360;
+        checkLvl();
+        updateAll();
+        saveToServer();
+    }
+}, 10000);
+
+setInterval(() => {
+    if (power < maxPower) {
+        power = Math.min(maxPower, power + Math.ceil(maxPower/300));
+        updateAll();
+    }
+}, 1000);
+</script>
+</body>
+</html>
