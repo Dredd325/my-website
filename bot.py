@@ -12,7 +12,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 PORT = int(os.getenv("PORT", 8000))
 RAILWAY_URL = os.getenv("RAILWAY_PUBLIC_DOMAIN", "localhost")
 DB_FILE = "database.json"
-ADMIN_IDS = [123456789]  # ТВОЙ Telegram ID
+ADMIN_IDS = [5203710686]  # ТВОЙ Telegram ID
 
 logging.basicConfig(level=logging.INFO)
 
