@@ -15,11 +15,9 @@
             --text2: #888;
             --text3: #555;
             --accent: #4f8fff;
-            --accent2: #3b6fdf;
             --green: #2ecc71;
             --red: #e74c3c;
             --orange: #f39c12;
-            --gold: #f1c40f;
             --radius: 18px;
             --radius-sm: 12px;
             --radius-xs: 8px;
@@ -37,26 +35,18 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
-            -webkit-font-smoothing: antialiased;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
             max-width: 440px;
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 16px;
         }
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .balance-pill {
+        .logo { font-size: 22px; font-weight: 700; }
+        .bal-pill {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 30px;
@@ -67,333 +57,196 @@
             align-items: center;
             gap: 8px;
         }
-        .balance-dot {
-            width: 9px;
-            height: 9px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
+        .bal-dot { width: 9px; height: 9px; background: var(--accent); border-radius: 50%; }
 
-        /* Stats row */
-        .stats {
+        .stats-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
+            margin-bottom: 16px;
         }
-        .stat {
+        .stat-box {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 12px;
             text-align: center;
         }
-        .stat-val {
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .stat-lbl {
-            font-size: 10px;
-            color: var(--text3);
-            margin-top: 2px;
-        }
+        .stat-val { font-size: 16px; font-weight: 700; }
+        .stat-lbl { font-size: 10px; color: var(--text3); }
 
-        /* Level */
         .level-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 16px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             gap: 14px;
+            margin-bottom: 16px;
         }
-        .level-circle {
-            width: 48px;
-            height: 48px;
+        .lvl-circle {
+            width: 46px; height: 46px;
             background: var(--accent);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-            color: #fff;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0;
         }
-        .level-info { flex: 1; }
-        .level-name { font-weight: 700; font-size: 15px; }
-        .level-sub { font-size: 11px; color: var(--text2); }
-        .bar {
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-        .bar-fill {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 2px;
-            transition: width 0.3s;
-        }
+        .lvl-info { flex: 1; }
+        .lvl-name { font-weight: 700; font-size: 14px; }
+        .lvl-sub { font-size: 11px; color: var(--text2); }
+        .bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
 
-        /* Tap */
         .tap-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            margin-bottom: 20px;
         }
         .coin {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 120px; height: 120px; border-radius: 50%;
             background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 56px;
-            font-weight: 900;
-            color: #fff;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 56px; font-weight: 900; color: #fff;
+            cursor: pointer; position: relative;
             transition: transform 0.06s, box-shadow 0.06s;
-            position: relative;
         }
-        .coin:active {
-            transform: scale(0.91);
-            box-shadow: 0 0 60px 15px rgba(79,143,255,0.5);
-        }
+        .coin:active { transform: scale(0.91); box-shadow: 0 0 60px 15px rgba(79,143,255,0.5); }
         .coin-cost {
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--orange);
-            font-size: 10px;
-            padding: 3px 7px;
-            border-radius: 20px;
-            font-weight: 700;
+            position: absolute; bottom: -4px; right: -4px;
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--orange); font-size: 10px; padding: 3px 7px;
+            border-radius: 20px; font-weight: 700;
         }
-        .big-balance {
-            font-size: 40px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-        }
-        .tap-sub {
-            font-size: 13px;
-            color: var(--text2);
-        }
+        .big-bal { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; }
+        .tap-sub { font-size: 13px; color: var(--text2); }
 
         /* Tabs */
         .tabs {
-            display: flex;
-            background: var(--surface);
-            border-radius: var(--radius-sm);
-            padding: 4px;
-            gap: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            display: flex; background: var(--surface); border-radius: var(--radius-sm);
+            padding: 4px; gap: 4px; position: sticky; top: 0; z-index: 10; margin-bottom: 16px;
+            flex-wrap: wrap;
         }
         .tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            color: var(--text2);
-            transition: all 0.15s;
+            flex: 1; padding: 9px 6px; text-align: center; border-radius: 10px;
+            font-weight: 600; font-size: 12px; cursor: pointer; color: var(--text2);
+            transition: all 0.15s; white-space: nowrap; min-width: 50px;
         }
-        .tab.active {
-            background: var(--surface2);
-            color: var(--text);
-        }
+        .tab.active { background: var(--surface2); color: var(--text); }
 
-        /* Cards */
         .page { display: none; flex-direction: column; gap: 12px; }
         .page.active { display: flex; }
 
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            cursor: pointer;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 14px; cursor: pointer;
+            text-align: center; display: flex; flex-direction: column; gap: 5px; align-items: center;
             transition: border 0.15s;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
         }
         .card:active { border-color: #444; }
         .card.owned { border-color: var(--green); }
-        .card-emoji { font-size: 34px; }
+        .card-emoji { font-size: 32px; }
         .card-name { font-weight: 600; font-size: 13px; }
         .card-stat { font-size: 11px; color: var(--green); }
         .card-price { font-size: 11px; color: var(--text2); }
         .card-lvl { font-size: 10px; color: var(--accent); }
 
-        /* Mining */
         .mine-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.15s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 30px; text-align: center;
+            cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
         .mine-box:active { background: var(--surface2); }
-        .mine-icon { font-size: 64px; transition: transform 0.1s; }
+        .mine-icon { font-size: 60px; transition: transform 0.1s; }
         .mine-title { font-weight: 700; font-size: 15px; }
         .mine-sub { font-size: 12px; color: var(--text2); }
 
-        /* Admin */
-        .admin-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        /* Top */
+        .top-list { display: flex; flex-direction: column; gap: 6px; }
+        .top-row {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 12px 14px;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .admin-card input {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 12px;
-            border-radius: var(--radius-xs);
-            font-size: 14px;
-            outline: none;
-            font-family: var(--font);
-        }
-        .admin-card input:focus { border-color: var(--accent); }
-        .btn {
-            padding: 12px;
-            border: none;
-            border-radius: var(--radius-xs);
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            font-family: var(--font);
-            width: 100%;
-        }
-        .btn-blue { background: var(--accent); color: #fff; }
-        .btn-blue:active { background: var(--accent2); }
-        .btn-red { background: var(--red); color: #fff; }
-        .btn-red:active { background: #c0392b; }
-
-        /* Disclaimer */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .overlay-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 22px;
-            text-align: center;
-            max-width: 340px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .overlay-card h2 { font-size: 22px; letter-spacing: -0.5px; }
-        .overlay-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
-        .overlay-card input {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 12px;
-            border-radius: var(--radius-xs);
-            font-size: 15px;
-            text-align: center;
-            outline: none;
-            font-family: var(--font);
-        }
-        .overlay-card input:focus { border-color: var(--accent); }
+        .top-pos { font-weight: 800; font-size: 16px; color: var(--accent); width: 30px; }
+        .top-name { font-weight: 600; font-size: 14px; flex: 1; }
+        .top-bal { font-size: 13px; color: var(--text2); }
+        .top-lvl { font-size: 11px; color: var(--accent); margin-left: 8px; }
 
         .hidden { display: none !important; }
+        .overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .overlay-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 28px 22px; text-align: center;
+            max-width: 340px; width: 100%; display: flex; flex-direction: column; gap: 16px;
+        }
+        .overlay-card h2 { font-size: 22px; }
+        .overlay-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+        .overlay-card input {
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--text); padding: 12px; border-radius: var(--radius-xs);
+            font-size: 15px; text-align: center; outline: none; font-family: var(--font);
+        }
+        .btn {
+            padding: 12px; border: none; border-radius: var(--radius-xs);
+            font-weight: 700; font-size: 14px; cursor: pointer; font-family: var(--font); width: 100%;
+        }
+        .btn-blue { background: var(--accent); color: #fff; }
+        .btn-blue:active { opacity: 0.85; }
     </style>
 </head>
 <body>
 
-    <!-- Disclaimer -->
-    <div class="overlay" id="disclaimer">
+    <div class="overlay hidden" id="overlay">
         <div class="overlay-card">
             <h2>🟦 Blox</h2>
-            <p>Тапай, собирай блоксы, покупай активы, качай бусты.<br>Power тратится за тап и восстанавливается.<br>Активы дают пассивный доход в час.</p>
-            <input type="text" id="nickInput" placeholder="Твой никнейм" maxlength="20">
-            <button class="btn btn-blue" onclick="startGame()">🚀 Начать</button>
+            <p>Твой прогресс сохраняется на сервере.<br>Введи никнейм (только один раз).</p>
+            <input type="text" id="nickInput" placeholder="Никнейм" maxlength="20">
+            <button class="btn btn-blue" onclick="initUser()">🚀 Войти</button>
         </div>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <div class="logo">🟦 Blox</div>
-        <div class="balance-pill">
-            <span class="balance-dot"></span>
-            <span id="balDisplay">0</span> BLOX
+        <div class="bal-pill"><span class="bal-dot"></span><span id="bal">0</span> BLOX</div>
+    </div>
+
+    <!-- Главная: статы + уровень + тап -->
+    <div id="page-main" class="page active">
+        <div class="stats-row">
+            <div class="stat-box"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl">За тап</div></div>
+            <div class="stat-box"><div class="stat-val" id="powerVal">30000</div><div class="stat-lbl">Power</div></div>
+            <div class="stat-box"><div class="stat-val" id="incVal">0</div><div class="stat-lbl">Доход/ч</div></div>
+        </div>
+        <div class="level-card">
+            <div class="lvl-circle" id="lvlBadge">1</div>
+            <div class="lvl-info">
+                <div class="lvl-name" id="lvlName">Новичок</div>
+                <div class="lvl-sub"><span id="lvlProgress">0</span> / <span id="lvlNext">1M</span></div>
+                <div class="bar"><div class="bar-fill" id="lvlBar" style="width:0%"></div></div>
+            </div>
+        </div>
+        <div class="tap-area">
+            <div class="coin" id="tapBtn">B<span class="coin-cost" id="costLabel">-10</span></div>
+            <div class="big-bal" id="bigBal">0</div>
+            <div class="tap-sub">+<span id="perTapSpan">1</span> BLOX за тап</div>
         </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl">За тап</div></div>
-        <div class="stat"><div class="stat-val" id="powerVal">30000</div><div class="stat-lbl">Power</div></div>
-        <div class="stat"><div class="stat-val" id="incomeVal">0</div><div class="stat-lbl">Доход/ч</div></div>
+    <!-- Табы -->
+    <div class="tabs" id="tabs">
+        <div class="tab active" data-page="main">🏠 Главная</div>
+        <div class="tab" data-page="assets">🏖 Активы</div>
+        <div class="tab" data-page="boosts">⚡ Бусты</div>
+        <div class="tab" data-page="mining">⛏ Майнинг</div>
+        <div class="tab" data-page="top">🏆 Топ</div>
     </div>
 
-    <!-- Level -->
-    <div class="level-card">
-        <div class="level-circle" id="lvlBadge">1</div>
-        <div class="level-info">
-            <div class="level-name" id="lvlName">Новичок</div>
-            <div class="level-sub"><span id="lvlProgress">0</span> / <span id="lvlNext">1 000 000</span> BLOX</div>
-            <div class="bar"><div class="bar-fill" id="lvlBar" style="width:0%"></div></div>
-        </div>
-    </div>
-
-    <!-- Tap -->
-    <div class="tap-area">
-        <div class="coin" id="tapBtn">B<span class="coin-cost">-10</span></div>
-        <div class="big-balance" id="bigBalance">0</div>
-        <div class="tap-sub">+<span id="perTapSpan">1</span> BLOX за тап</div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tabs">
-        <div class="tab active" data-tab="assets">🏖 Активы</div>
-        <div class="tab" data-tab="boosts">⚡ Бусты</div>
-        <div class="tab" data-tab="mining">⛏ Майнинг</div>
-        <div class="tab" data-tab="admin">⚙ Админ</div>
-    </div>
-
-    <!-- Pages -->
-    <div class="page active" id="page-assets"><div class="card-grid" id="assetsGrid"></div></div>
+    <!-- Страницы -->
+    <div class="page" id="page-assets"><div class="card-grid" id="assetsGrid"></div></div>
     <div class="page" id="page-boosts"><div class="card-grid" id="boostsGrid"></div></div>
     <div class="page" id="page-mining">
         <div class="mine-box" id="mineBox">
@@ -402,24 +255,16 @@
             <div class="mine-sub">+<span id="mineReward">50</span> BLOX за удар</div>
         </div>
     </div>
-    <div class="page" id="page-admin">
-        <div class="admin-card">
-            <div style="font-weight:700;">⚙ Админ-панель</div>
-            <input type="number" id="admBalance" placeholder="Баланс (число)">
-            <button class="btn btn-blue" onclick="admSetBalance()">Установить баланс</button>
-            <input type="number" id="admIncome" placeholder="Доход в час (число)">
-            <button class="btn btn-blue" onclick="admSetIncome()">Установить доход</button>
-            <input type="number" id="admPower" placeholder="Макс. Power (число)">
-            <button class="btn btn-blue" onclick="admSetPower()">Установить Power</button>
-            <button class="btn btn-red" onclick="admReset()">Сбросить всё</button>
-        </div>
-    </div>
+    <div class="page" id="page-top"><div class="top-list" id="topList">Загрузка...</div></div>
 
 <script>
 // --- State ---
+let uid = "";
 let balance = 0, perTap = 1, power = 30000, maxPower = 30000, powerCost = 10;
 let incomePerHour = 0, nickname = "", level = 1, totalEarned = 0;
 let assetsOwned = {}, boostsOwned = {};
+let loaded = false;
+const API = "/api";
 
 const levels = [
     { name:"Новичок", cost:1_000_000, power:30000, pCost:10, tapBase:1 },
@@ -437,41 +282,75 @@ const assets = [
     { id:"jet", emoji:"✈️", name:"Blox в джете", cost:500000, inc:1000, upg:250000 },
     { id:"moon", emoji:"🌙", name:"Blox на Луне", cost:2_000_000, inc:5000, upg:1_000_000 },
     { id:"crown", emoji:"👑", name:"Король Blox", cost:10_000_000, inc:20000, upg:5_000_000 },
-    { id:"galaxy", emoji:"🌌", name:"Галактика Blox", cost:50_000_000, inc:100000, upg:25_000_000 },
+    { id:"galaxy", emoji:"🌌", name:"Галактика", cost:50_000_000, inc:100000, upg:25_000_000 },
 ];
 
-const boosts = [
-    { id:"multitap", emoji:"👆", name:"Мультитап", desc:"+1 за тап", cost:1000 },
-    { id:"powerup", emoji:"⚡", name:"Power+", desc:"+5K макс.Power", cost:5000 },
-    { id:"pickaxe", emoji:"⛏", name:"Кирка PRO", desc:"+25 к добыче", cost:10000 },
+const baseBoosts = [
+    { id:"multitap", emoji:"👆", name:"Мультитап", desc:"+1 за тап", baseCost:1000 },
+    { id:"powerup", emoji:"⚡", name:"Power+", desc:"+5K макс.Power", baseCost:5000 },
+    { id:"pickaxe", emoji:"⛏", name:"Кирка PRO", desc:"+25 к добыче", baseCost:10000 },
 ];
 
-// --- Init ---
-function startGame() {
+function boostCost(b) {
+    const lvl = boostsOwned[b.id] || 0;
+    return Math.floor(b.baseCost * Math.pow(1.8, lvl));
+}
+
+// --- TG Init ---
+const tg = window.Telegram?.WebApp;
+if (tg) {
+    tg.ready();
+    tg.expand();
+    uid = tg.initDataUnsafe?.user?.id?.toString() || "";
+}
+
+async function initUser() {
     nickname = document.getElementById("nickInput").value || "Анон";
-    document.getElementById("disclaimer").classList.add("hidden");
-    load(); updateAll(); renderAssets(); renderBoosts();
-}
-
-function load() {
-    const s = localStorage.getItem("blox_save_v2");
-    if (s) {
-        try {
-            const d = JSON.parse(s);
-            balance=d.balance??0; perTap=d.perTap??1; power=d.power??30000;
-            maxPower=d.maxPower??30000; powerCost=d.powerCost??10;
-            incomePerHour=d.incomePerHour??0; nickname=d.nickname??"Анон";
-            level=d.level??1; totalEarned=d.totalEarned??0;
-            assetsOwned=d.assetsOwned??{}; boostsOwned=d.boostsOwned??{};
-        } catch(e) {}
+    // Пытаемся загрузить с сервера
+    const resp = await fetch(`${API}/user?uid=${uid}`);
+    if (resp.ok) {
+        const data = await resp.json();
+        if (data.nickname && data.nickname !== nickname) {
+            // уже есть ник
+        }
+        loadFromServer(data);
+    } else {
+        // новый юзер — сохраняем
+        await saveToServer();
     }
+    document.getElementById("overlay").classList.add("hidden");
+    loaded = true;
+    updateAll();
+    renderAssets();
+    renderBoosts();
+    loadTop();
 }
 
-function save() {
-    localStorage.setItem("blox_save_v2", JSON.stringify({
-        balance, perTap, power, maxPower, powerCost, incomePerHour,
-        nickname, level, totalEarned, assetsOwned, boostsOwned
-    }));
+function loadFromServer(data) {
+    balance = data.balance || 0;
+    perTap = data.perTap || 1;
+    power = data.power || 30000;
+    maxPower = data.maxPower || 30000;
+    powerCost = data.powerCost || 10;
+    incomePerHour = data.incomePerHour || 0;
+    nickname = data.nickname || "Анон";
+    level = data.level || 1;
+    totalEarned = data.totalEarned || 0;
+    assetsOwned = data.assets || {};
+    boostsOwned = data.boosts || {};
+}
+
+async function saveToServer() {
+    if (!uid || !loaded) return;
+    await fetch(`${API}/save`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            uid, balance, perTap, power, maxPower, powerCost,
+            incomePerHour, nickname, level, totalEarned,
+            assets: assetsOwned, boosts: boostsOwned,
+        })
+    });
 }
 
 function fmt(n) {
@@ -482,12 +361,13 @@ function fmt(n) {
 }
 
 function updateAll() {
-    document.getElementById("balDisplay").textContent = fmt(balance);
-    document.getElementById("bigBalance").textContent = fmt(balance);
+    document.getElementById("bal").textContent = fmt(balance);
+    document.getElementById("bigBal").textContent = fmt(balance);
     document.getElementById("tapVal").textContent = perTap;
     document.getElementById("perTapSpan").textContent = perTap;
     document.getElementById("powerVal").textContent = power;
-    document.getElementById("incomeVal").textContent = fmt(incomePerHour);
+    document.getElementById("incVal").textContent = fmt(incomePerHour);
+    document.getElementById("costLabel").textContent = "-"+powerCost;
 
     const lvl = levels[Math.min(level-1, levels.length-1)];
     document.getElementById("lvlBadge").textContent = level;
@@ -500,7 +380,6 @@ function updateAll() {
         document.getElementById("lvlNext").textContent = fmt(lvl.cost);
         document.getElementById("lvlBar").style.width = Math.min(100, (totalEarned/lvl.cost)*100)+"%";
     }
-    save();
 }
 
 // --- Tap ---
@@ -522,7 +401,6 @@ function checkLvl() {
         level++;
         recalcIncome();
     }
-    updateAll();
 }
 
 // --- Assets ---
@@ -546,12 +424,13 @@ function renderAssets() {
 function buyAsset(a) {
     const own = assetsOwned[a.id]||0;
     const cost = own>0 ? a.upg : a.cost;
-    if (balance < cost) return alert("Недостаточно BLOX");
+    if (balance < cost) return;
     balance -= cost;
     assetsOwned[a.id] = own+1;
     recalcIncome();
     updateAll();
     renderAssets();
+    saveToServer();
 }
 
 function recalcIncome() {
@@ -563,14 +442,15 @@ function recalcIncome() {
 function renderBoosts() {
     const g = document.getElementById("boostsGrid");
     g.innerHTML = "";
-    boosts.forEach(b => {
+    baseBoosts.forEach(b => {
         const lvl = boostsOwned[b.id]||0;
+        const cost = boostCost(b);
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `<div class="card-emoji">${b.emoji}</div>
             <div class="card-name">${b.name}</div>
             <div class="card-stat">${b.desc}</div>
-            <div class="card-price">${fmt(b.cost)} BLOX</div>
+            <div class="card-price">${fmt(cost)} BLOX</div>
             ${lvl>0?`<div class="card-lvl">Ур. ${lvl}</div>`:""}`;
         card.addEventListener("click", () => buyBoost(b));
         g.appendChild(card);
@@ -578,13 +458,15 @@ function renderBoosts() {
 }
 
 function buyBoost(b) {
-    if (balance < b.cost) return alert("Недостаточно BLOX");
-    balance -= b.cost;
+    const cost = boostCost(b);
+    if (balance < cost) return;
+    balance -= cost;
     boostsOwned[b.id] = (boostsOwned[b.id]||0)+1;
     if (b.id==="multitap") perTap++;
     if (b.id==="powerup") { maxPower+=5000; power=maxPower; }
     updateAll();
     renderBoosts();
+    saveToServer();
 }
 
 // --- Mining ---
@@ -595,11 +477,27 @@ document.getElementById("mineBox").addEventListener("click", () => {
     document.getElementById("mineReward").textContent = rew;
     checkLvl();
     updateAll();
+    saveToServer();
     const icon = document.getElementById("mineIcon");
     icon.style.transform = "scale(0.8)";
     setTimeout(() => icon.style.transform = "scale(1)", 100);
     if (navigator.vibrate) navigator.vibrate(10);
 });
+
+// --- Top ---
+async function loadTop() {
+    const resp = await fetch(`${API}/top`);
+    const data = await resp.json();
+    const list = document.getElementById("topList");
+    list.innerHTML = data.map((u, i) => `
+        <div class="top-row">
+            <div class="top-pos">#${i+1}</div>
+            <div class="top-name">${u.username}</div>
+            <div class="top-lvl">Ур.${u.level}</div>
+            <div class="top-bal">${fmt(u.balance)} BLOX</div>
+        </div>
+    `).join("");
+}
 
 // --- Tabs ---
 document.querySelectorAll(".tab").forEach(t => {
@@ -607,34 +505,43 @@ document.querySelectorAll(".tab").forEach(t => {
         document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
         t.classList.add("active");
         document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        document.getElementById("page-"+t.dataset.tab).classList.add("active");
+        const pageId = "page-"+t.dataset.page;
+        const pageEl = document.getElementById(pageId);
+        if (pageEl) pageEl.classList.add("active");
+        if (t.dataset.page === "top") loadTop();
     });
 });
 
-// --- Admin ---
-function admSetBalance() {
-    const v = parseInt(document.getElementById("admBalance").value);
-    if (!isNaN(v)) { balance = v; updateAll(); }
-}
-function admSetIncome() {
-    const v = parseInt(document.getElementById("admIncome").value);
-    if (!isNaN(v)) { incomePerHour = v; updateAll(); }
-}
-function admSetPower() {
-    const v = parseInt(document.getElementById("admPower").value);
-    if (!isNaN(v)) { maxPower = v; power = v; updateAll(); }
-}
-function admReset() {
-    if (confirm("Сбросить всё?")) { localStorage.clear(); location.reload(); }
+// --- Start ---
+if (uid) {
+    // Пробуем загрузить
+    fetch(`${API}/user?uid=${uid}`).then(async r => {
+        if (r.ok) {
+            const d = await r.json();
+            loadFromServer(d);
+            loaded = true;
+            updateAll();
+            renderAssets();
+            renderBoosts();
+            loadTop();
+        } else {
+            document.getElementById("overlay").classList.remove("hidden");
+        }
+    });
+} else {
+    // Без TG — localhost для теста
+    uid = "test_" + Date.now();
+    document.getElementById("overlay").classList.remove("hidden");
 }
 
 // --- Passive income ---
 setInterval(() => {
-    if (incomePerHour > 0) {
+    if (incomePerHour > 0 && loaded) {
         balance += incomePerHour/360;
         totalEarned += incomePerHour/360;
         checkLvl();
         updateAll();
+        saveToServer();
     }
 }, 10000);
 
@@ -645,14 +552,6 @@ setInterval(() => {
         updateAll();
     }
 }, 1000);
-
-// --- TG ---
-const tg = window.Telegram?.WebApp;
-if (tg) { tg.ready(); tg.expand(); }
-
-updateAll();
-renderAssets();
-renderBoosts();
 </script>
 </body>
 </html>
