@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Blox</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #131313;
+            --surface2: #1a1a1a;
+            --border: #262626;
+            --text: #f4f4f4;
+            --text2: #a0a0a0;
+            --blue: #3b82f6;
+            --blue-hover: #2563eb;
+            --green: #22c55e;
+            --radius: 16px;
+            --radius-sm: 12px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            padding: 20px 16px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .balance {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .balance-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--blue);
+            border-radius: 50%;
+        }
+
+        /* Tap area */
+        .tap-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .blox-coin {
+            width: 110px;
+            height: 110px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.07s ease, box-shadow 0.07s ease;
+            box-shadow: 0 0 0 0 rgba(59,130,246,0);
+        }
+        .blox-coin:active {
+            transform: scale(0.93);
+            box-shadow: 0 0 50px 12px rgba(59,130,246,0.55);
+        }
+        .score {
+            font-size: 46px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+        }
+        .tap-label {
+            font-size: 13px;
+            color: var(--text2);
+        }
+
+        /* Sections */
+        .section-header {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        /* Boosts */
+        .boosts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .boost {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: background 0.15s, border 0.15s;
+        }
+        .boost:active { background: var(--surface2); border-color: #444; }
+        .boost-icon { font-size: 26px; }
+        .boost-title { font-weight: 600; font-size: 15px; }
+        .boost-info { font-size: 12px; color: var(--text2); }
+        .btn {
+            margin-top: auto;
+            padding: 10px 0;
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.12s;
+            font-family: var(--font);
+            width: 100%;
+        }
+        .btn:active { background: var(--blue-hover); }
+        .btn:disabled { background: #2a2a2a; color: #666; }
+
+        /* Quests */
+        .quests {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .quest {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .quest-left { display: flex; flex-direction: column; gap: 4px; }
+        .quest-title { font-weight: 600; font-size: 14px; }
+        .quest-reward { font-size: 12px; color: var(--green); }
+        .quest-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+        .quest-btn:active { background: var(--surface2); }
+        .quest-btn.done { background: var(--green); color: #000; border-color: var(--green); }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🟦 Blox</div>
+        <div class="balance">
+            <span class="balance-dot"></span>
+            <span id="balanceDisplay">0</span> BLOX
+        </div>
+    </div>
+
+    <div class="tap-card">
+        <div class="blox-coin" id="tapBtn">B</div>
+        <div class="score" id="scoreDisplay">0</div>
+        <div class="tap-label">+<span id="perTapDisplay">1</span> за тап</div>
+    </div>
+
+    <div class="section-header">⚡ Бусты</div>
+    <div class="boosts-grid">
+        <div class="boost" id="boostMultitap">
+            <div class="boost-icon">👆</div>
+            <div class="boost-title">Мультитап</div>
+            <div class="boost-info">+1 к каждому тапу</div>
+            <div class="boost-info">Цена: <b>100</b> BLOX</div>
+            <button class="btn" onclick="buyBoost('multitap')">Купить</button>
+            <div class="boost-info">Куплено: <span id="multitapLvl">0</span></div>
+        </div>
+        <div class="boost" id="boostAutoclick">
+            <div class="boost-icon">🤖</div>
+            <div class="boost-title">Автоклик</div>
+            <div class="boost-info">+1 BLOX/сек</div>
+            <div class="boost-info">Цена: <b>250</b> BLOX</div>
+            <button class="btn" onclick="buyBoost('autoclick')">Купить</button>
+            <div class="boost-info">Куплено: <span id="autoclickLvl">0</span></div>
+        </div>
+    </div>
+
+    <div class="section-header">📋 Ежедневные квесты</div>
+    <div class="quests">
+        <div class="quest" id="quest1">
+            <div class="quest-left">
+                <div class="quest-title">Сделай 50 тапов</div>
+                <div class="quest-reward">+100 BLOX</div>
+            </div>
+            <button class="quest-btn" id="quest1Btn" onclick="claimQuest(1)">Выполнить</button>
+        </div>
+        <div class="quest" id="quest2">
+            <div class="quest-left">
+                <div class="quest-title">Купи любой буст</div>
+                <div class="quest-reward">+150 BLOX</div>
+            </div>
+            <button class="quest-btn" id="quest2Btn" onclick="claimQuest(2)">Выполнить</button>
+        </div>
+    </div>
+
+    <div class="footer">Blox v0.1 • TON Testnet</div>
+
+    <script>
+        // --- Состояние ---
+        let balance = 0;
+        let perTap = 1;
+        let autoclickLvl = 0;
+        let multitapLvl = 0;
+        let totalTaps = 0;
+        let quest1Done = false;
+        let quest2Done = false;
+
+        // Telegram WebApp
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready();
+            tg.expand();
+            // Можно взять user_id для бекенда
+            console.log("TG WebApp ready, user:", tg.initDataUnsafe?.user?.id);
+        }
+
+        // --- DOM ---
+        const balanceEl = document.getElementById("balanceDisplay");
+        const scoreEl = document.getElementById("scoreDisplay");
+        const perTapEl = document.getElementById("perTapDisplay");
+        const tapBtn = document.getElementById("tapBtn");
+        const multitapLvlEl = document.getElementById("multitapLvl");
+        const autoclickLvlEl = document.getElementById("autoclickLvl");
+        const quest1Btn = document.getElementById("quest1Btn");
+        const quest2Btn = document.getElementById("quest2Btn");
+
+        // --- Функции ---
+        function updateUI() {
+            balanceEl.textContent = balance;
+            scoreEl.textContent = balance;
+            perTapEl.textContent = perTap;
+            multitapLvlEl.textContent = multitapLvl;
+            autoclickLvlEl.textContent = autoclickLvl;
+
+            // Квест 1
+            if (totalTaps >= 50 && !quest1Done) {
+                quest1Btn.classList.add("done");
+                quest1Btn.textContent = "Забрать";
+            }
+            // Квест 2
+            if ((multitapLvl > 0 || autoclickLvl > 0) && !quest2Done) {
+                quest2Btn.classList.add("done");
+                quest2Btn.textContent = "Забрать";
+            }
+        }
+
+        function addBalance(amount) {
+            balance += amount;
+            updateUI();
+            // Виброотклик (если доступен)
+            if (navigator.vibrate) navigator.vibrate(8);
+        }
+
+        // --- Тап ---
+        tapBtn.addEventListener("click", () => {
+            addBalance(perTap);
+            totalTaps++;
+            updateUI();
+        });
+
+        // --- Покупка бустов ---
+        function buyBoost(type) {
+            if (type === "multitap") {
+                const cost = 100;
+                if (balance < cost) return alert("Недостаточно BLOX");
+                balance -= cost;
+                multitapLvl++;
+                perTap++;
+            }
+            if (type === "autoclick") {
+                const cost = 250;
+                if (balance < cost) return alert("Недостаточно BLOX");
+                balance -= cost;
+                autoclickLvl++;
+            }
+            updateUI();
+        }
+
+        // --- Автоклик (каждую секунду) ---
+        setInterval(() => {
+            if (autoclickLvl > 0) {
+                addBalance(autoclickLvl);
+            }
+        }, 1000);
+
+        // --- Квесты ---
+        function claimQuest(num) {
+            if (num === 1 && totalTaps >= 50 && !quest1Done) {
+                quest1Done = true;
+                balance += 100;
+                quest1Btn.textContent = "✅";
+                quest1Btn.classList.remove("done");
+                quest1Btn.classList.add("done");
+                quest1Btn.disabled = true;
+            }
+            if (num === 2 && (multitapLvl > 0 || autoclickLvl > 0) && !quest2Done) {
+                quest2Done = true;
+                balance += 150;
+                quest2Btn.textContent = "✅";
+                quest2Btn.classList.remove("done");
+                quest2Btn.classList.add("done");
+                quest2Btn.disabled = true;
+            }
+            updateUI();
+        }
+
+        updateUI();
+    </script>
+</body>
+</html>
