@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -42,52 +42,30 @@
             gap: 12px;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 20px; font-weight: 700; }
         .bal-pill {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 9px 16px;
-            font-weight: 600;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 7px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 30px; padding: 9px 16px; font-weight: 600;
+            font-size: 13px; display: flex; align-items: center; gap: 7px;
         }
         .bal-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
 
-        .stats-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 7px;
-        }
+        .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
         .stat-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 10px 8px;
-            text-align: center;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 10px 8px; text-align: center;
         }
         .stat-val { font-size: 15px; font-weight: 700; }
         .stat-lbl { font-size: 10px; color: var(--text3); }
 
         .level-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 12px 14px;
+            display: flex; align-items: center; gap: 12px;
         }
         .lvl-circle {
-            width: 44px; height: 44px;
-            border-radius: 50%;
+            width: 44px; height: 44px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-weight: 800; font-size: 16px; color: #fff;
             transition: background 0.4s, box-shadow 0.4s;
@@ -98,9 +76,7 @@
         .bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 5px; overflow: hidden; }
         .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
 
-        .tap-area {
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-        }
+        .tap-area { display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .coin-wrapper { position: relative; }
         .coin {
             width: 110px; height: 110px; border-radius: 50%;
@@ -121,13 +97,11 @@
 
         .tabs {
             display: flex; background: var(--surface); border-radius: var(--radius-sm);
-            padding: 3px; gap: 3px; position: sticky; top: 0; z-index: 10;
-            flex-wrap: wrap;
+            padding: 3px; gap: 3px; position: sticky; top: 0; z-index: 10; flex-wrap: wrap;
         }
         .tab {
             flex: 1; padding: 8px 4px; text-align: center; border-radius: 10px;
-            font-weight: 600; font-size: 11px; cursor: pointer; color: var(--text2);
-            white-space: nowrap;
+            font-weight: 600; font-size: 11px; cursor: pointer; color: var(--text2); white-space: nowrap;
         }
         .tab.active { background: var(--surface2); color: var(--text); }
 
@@ -186,60 +160,42 @@
             color: var(--text); padding: 11px; border-radius: var(--radius-sm);
             font-size: 14px; text-align: center; outline: none; font-family: var(--font);
         }
-        .lang-btns { display: flex; gap: 8px; }
-        .lang-btn {
-            flex: 1; padding: 10px; border: 1px solid var(--border);
-            border-radius: var(--radius-sm); background: var(--surface2);
-            color: var(--text); font-weight: 600; cursor: pointer; font-family: var(--font);
-        }
-        .lang-btn.selected { border-color: var(--accent); background: var(--accent); color: #fff; }
         .btn {
             padding: 10px; border: none; border-radius: var(--radius-sm);
-            font-weight: 700; font-size: 13px; cursor: pointer; font-family: var(--font);
-            width: 100%;
+            font-weight: 700; font-size: 13px; cursor: pointer; font-family: var(--font); width: 100%;
         }
         .btn-blue { background: var(--accent); color: #fff; }
         .btn-blue:active { opacity: 0.85; }
-        .btn-red { background: var(--red); color: #fff; }
 
         .hidden { display: none !important; }
-        .text-center { text-align: center; }
-        .text-sm { font-size: 11px; color: var(--text2); }
     </style>
 </head>
 <body>
 
-    <!-- Overlay: выбор языка + ник -->
     <div class="overlay hidden" id="overlay">
         <div class="overlay-card">
             <h2>🟦 Blox</h2>
-            <p id="overlayDesc">Выбери язык / Choose language</p>
-            <div class="lang-btns">
-                <button class="lang-btn selected" data-lang="ru" onclick="selectLang('ru')">🇷🇺 Русский</button>
-                <button class="lang-btn" data-lang="en" onclick="selectLang('en')">🇬🇧 English</button>
-            </div>
-            <input type="text" id="nickInput" placeholder="Никнейм / Nickname" maxlength="20">
-            <button class="btn btn-blue" id="enterBtn" onclick="initUser()">🚀 Войти / Enter</button>
+            <p>Enter your nickname to start.</p>
+            <input type="text" id="nickInput" placeholder="Nickname" maxlength="20">
+            <button class="btn btn-blue" onclick="initUser()">🚀 Enter</button>
         </div>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <div class="logo">🟦 Blox</div>
         <div class="bal-pill"><span class="bal-dot"></span><span id="bal">0</span> BLOX</div>
     </div>
 
-    <!-- Main page -->
     <div id="page-main" class="page active">
         <div class="stats-row">
-            <div class="stat-box"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl" data-key="perTap">За тап</div></div>
-            <div class="stat-box"><div class="stat-val" id="powerVal">30K</div><div class="stat-lbl" data-key="power">Power</div></div>
-            <div class="stat-box"><div class="stat-val" id="incVal">0</div><div class="stat-lbl" data-key="income">Доход/ч</div></div>
+            <div class="stat-box"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl">Per tap</div></div>
+            <div class="stat-box"><div class="stat-val" id="powerVal">30K</div><div class="stat-lbl">Power</div></div>
+            <div class="stat-box"><div class="stat-val" id="incVal">0</div><div class="stat-lbl">Income/h</div></div>
         </div>
         <div class="level-card">
             <div class="lvl-circle" id="lvlBadge">1</div>
             <div class="lvl-info">
-                <div class="lvl-name" id="lvlName">Новичок</div>
+                <div class="lvl-name" id="lvlName">Novice</div>
                 <div class="lvl-sub"><span id="lvlProgress">0</span> / <span id="lvlNext">1M</span></div>
                 <div class="bar"><div class="bar-fill" id="lvlBar" style="width:0%"></div></div>
             </div>
@@ -249,21 +205,18 @@
                 <div class="coin" id="tapBtn">B<span class="coin-cost" id="costLabel">-10</span></div>
             </div>
             <div class="big-bal" id="bigBal">0</div>
-            <div class="tap-sub">+<span id="perTapSpan">1</span> <span data-key="perTapLabel">BLOX за тап</span></div>
+            <div class="tap-sub">+<span id="perTapSpan">1</span> BLOX per tap</div>
         </div>
     </div>
 
-    <!-- Tabs -->
     <div class="tabs">
         <div class="tab active" data-page="main">🏠</div>
-        <div class="tab" data-page="assets"><span data-key="assetsTab">🏖 Активы</span></div>
-        <div class="tab" data-page="boosts"><span data-key="boostsTab">⚡ Бусты</span></div>
-        <div class="tab" data-page="mining"><span data-key="miningTab">⛏ Шахта</span></div>
-        <div class="tab" data-page="top"><span data-key="topTab">🏆 Топ</span></div>
-        <div class="tab" data-page="admin">⚙</div>
+        <div class="tab" data-page="assets">🏖 Assets</div>
+        <div class="tab" data-page="boosts">⚡ Boosts</div>
+        <div class="tab" data-page="mining">⛏ Mine</div>
+        <div class="tab" data-page="top">🏆 Top</div>
     </div>
 
-    <!-- Pages -->
     <div class="page" id="page-assets"><div class="card-grid" id="assetsGrid"></div></div>
     <div class="page" id="page-boosts"><div class="card-grid" id="boostsGrid"></div></div>
     <div class="page" id="page-mining">
@@ -272,64 +225,9 @@
             <div class="mine-score" id="mineScore">💎 0</div>
         </div>
     </div>
-    <div class="page" id="page-top"><div class="top-list" id="topList"><span data-key="loading">Загрузка...</span></div></div>
-    <div class="page" id="page-admin">
-        <div class="card" style="padding:14px;gap:8px;">
-            <div style="font-weight:700;">⚙ Админ</div>
-            <input type="number" id="admBal" placeholder="Баланс" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--font);">
-            <button class="btn btn-blue" onclick="adm('bal')">Установить баланс</button>
-            <input type="number" id="admInc" placeholder="Доход/ч" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--font);">
-            <button class="btn btn-blue" onclick="adm('inc')">Установить доход</button>
-            <button class="btn btn-red" onclick="if(confirm('Сбросить всё?')){localStorage.clear();location.reload();}">Сброс</button>
-        </div>
-    </div>
+    <div class="page" id="page-top"><div class="top-list" id="topList">Loading...</div></div>
 
 <script>
-// --- Lang ---
-let lang = "ru";
-const L = {
-    ru: {
-        perTap: "За тап", power: "Power", income: "Доход/ч",
-        perTapLabel: "BLOX за тап", assetsTab: "🏖 Активы", boostsTab: "⚡ Бусты",
-        miningTab: "⛏ Шахта", topTab: "🏆 Топ", loading: "Загрузка...",
-        nicknamePlaceholder: "Никнейм", enter: "🚀 Войти",
-        overlayDesc: "Выбери язык и введи никнейм",
-        offlineEarned: "Пока тебя не было, заработано:",
-        novice: "Новичок", advanced: "Продвинутый", expert: "Эксперт",
-        master: "Мастер", grandmaster: "Грандмастер", elite: "Элита", legend: "Легенда",
-        mineTitle: "Копай алмазы!", mineSub: "+{} BLOX за удар",
-        buyUpgrade: "Улучшить: ", buyCost: " BLOX",
-    },
-    en: {
-        perTap: "Per tap", power: "Power", income: "Income/h",
-        perTapLabel: "BLOX per tap", assetsTab: "🏖 Assets", boostsTab: "⚡ Boosts",
-        miningTab: "⛏ Mine", topTab: "🏆 Top", loading: "Loading...",
-        nicknamePlaceholder: "Nickname", enter: "🚀 Enter",
-        overlayDesc: "Choose language and enter nickname",
-        offlineEarned: "While you were away, earned:",
-        novice: "Novice", advanced: "Advanced", expert: "Expert",
-        master: "Master", grandmaster: "Grandmaster", elite: "Elite", legend: "Legend",
-        mineTitle: "Mine diamonds!", mineSub: "+{} BLOX per hit",
-        buyUpgrade: "Upgrade: ", buyCost: " BLOX",
-    }
-};
-
-function t(key, ...args) {
-    let s = L[lang][key] || key;
-    args.forEach((a, i) => s = s.replace("{}", a));
-    return s;
-}
-
-function selectLang(l) {
-    lang = l;
-    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("selected"));
-    document.querySelector(`.lang-btn[data-lang="${l}"]`).classList.add("selected");
-    document.getElementById("nickInput").placeholder = t("nicknamePlaceholder");
-    document.getElementById("enterBtn").textContent = t("enter");
-    document.getElementById("overlayDesc").textContent = t("overlayDesc");
-}
-
-// --- State ---
 let uid = "";
 let balance = 0, perTap = 1, power = 30000, maxPower = 30000, powerCost = 10;
 let incomePerHour = 0, nickname = "", level = 1, totalEarned = 0;
@@ -340,85 +238,72 @@ const API = "/api";
 const MAX_LVL = 150;
 const levelColors = ["#4f8fff","#5b9fff","#6db0ff","#82c0ff","#9ad0ff","#b5e0ff","#d0f0ff"];
 
+const levelNames = ["Novice","Advanced","Expert","Master","Grandmaster","Elite","Legend"];
 const levels = [
-    { name:"novice", cost:1_000_000, power:30000, pCost:10, tapBase:1 },
-    { name:"advanced", cost:10_000_000, power:50000, pCost:15, tapBase:3 },
-    { name:"expert", cost:50_000_000, power:80000, pCost:20, tapBase:6 },
-    { name:"master", cost:100_000_000, power:120000, pCost:25, tapBase:12 },
-    { name:"grandmaster", cost:250_000_000, power:200000, pCost:30, tapBase:25 },
-    { name:"elite", cost:500_000_000, power:350000, pCost:40, tapBase:50 },
-    { name:"legend", cost:1_000_000_000, power:500000, pCost:50, tapBase:100 },
+    { cost:1_000_000, power:30000, pCost:10, tapBase:1 },
+    { cost:10_000_000, power:50000, pCost:15, tapBase:3 },
+    { cost:50_000_000, power:80000, pCost:20, tapBase:6 },
+    { cost:100_000_000, power:120000, pCost:25, tapBase:12 },
+    { cost:250_000_000, power:200000, pCost:30, tapBase:25 },
+    { cost:500_000_000, power:350000, pCost:40, tapBase:50 },
+    { cost:1_000_000_000, power:500000, pCost:50, tapBase:100 },
 ];
 
 const assets = [
-    { id:"beach", emoji:"🏖️", name:"Blox на пляже", nameEn:"Beach Blox", cost:50000, baseInc:100 },
-    { id:"car", emoji:"🏎️", name:"Blox в тачке", nameEn:"Car Blox", cost:150000, baseInc:350 },
-    { id:"jet", emoji:"✈️", name:"Blox в джете", nameEn:"Jet Blox", cost:500000, baseInc:1000 },
-    { id:"moon", emoji:"🌙", name:"Лунный Blox", nameEn:"Moon Blox", cost:2_000_000, baseInc:5000 },
-    { id:"crown", emoji:"👑", name:"Король Blox", nameEn:"King Blox", cost:10_000_000, baseInc:20000 },
-    { id:"galaxy", emoji:"🌌", name:"Галактика", nameEn:"Galaxy", cost:50_000_000, baseInc:100000 },
-    { id:"rocket", emoji:"🚀", name:"Ракета Blox", nameEn:"Rocket Blox", cost:5_000_000, baseInc:8000 },
-    { id:"diamond", emoji:"💎", name:"Алмазный", nameEn:"Diamond", cost:25_000_000, baseInc:50000 },
-    { id:"whale", emoji:"🐋", name:"Blox Кит", nameEn:"Whale Blox", cost:75_000_000, baseInc:150000 },
-    { id:"universe", emoji:"🪐", name:"Вселенная", nameEn:"Universe", cost:150_000_000, baseInc:300000 },
-    { id:"phoenix", emoji:"🔥", name:"Феникс Blox", nameEn:"Phoenix Blox", cost:300_000_000, baseInc:600000 },
-    { id:"dragon", emoji:"🐉", name:"Дракон Blox", nameEn:"Dragon Blox", cost:500_000_000, baseInc:1_000_000 },
-    { id:"temple", emoji:"🏛️", name:"Храм Blox", nameEn:"Temple Blox", cost:800_000_000, baseInc:1_800_000 },
-    { id:"titan", emoji:"🗿", name:"Титан Blox", nameEn:"Titan Blox", cost:1_500_000_000, baseInc:3_500_000 },
-    { id:"infinity", emoji:"♾️", name:"Бесконечность", nameEn:"Infinity", cost:3_000_000_000, baseInc:7_000_000 },
+    { id:"beach", emoji:"🏖️", name:"Beach Blox", cost:50000, baseInc:100 },
+    { id:"car", emoji:"🏎️", name:"Car Blox", cost:150000, baseInc:350 },
+    { id:"jet", emoji:"✈️", name:"Jet Blox", cost:500000, baseInc:1000 },
+    { id:"moon", emoji:"🌙", name:"Moon Blox", cost:2_000_000, baseInc:5000 },
+    { id:"crown", emoji:"👑", name:"King Blox", cost:10_000_000, baseInc:20000 },
+    { id:"galaxy", emoji:"🌌", name:"Galaxy", cost:50_000_000, baseInc:100000 },
+    { id:"rocket", emoji:"🚀", name:"Rocket Blox", cost:5_000_000, baseInc:8000 },
+    { id:"diamond", emoji:"💎", name:"Diamond", cost:25_000_000, baseInc:50000 },
+    { id:"whale", emoji:"🐋", name:"Whale Blox", cost:75_000_000, baseInc:150000 },
+    { id:"universe", emoji:"🪐", name:"Universe", cost:150_000_000, baseInc:300000 },
+    { id:"phoenix", emoji:"🔥", name:"Phoenix Blox", cost:300_000_000, baseInc:600000 },
+    { id:"dragon", emoji:"🐉", name:"Dragon Blox", cost:500_000_000, baseInc:1_000_000 },
+    { id:"temple", emoji:"🏛️", name:"Temple Blox", cost:800_000_000, baseInc:1_800_000 },
+    { id:"titan", emoji:"🗿", name:"Titan Blox", cost:1_500_000_000, baseInc:3_500_000 },
+    { id:"infinity", emoji:"♾️", name:"Infinity", cost:3_000_000_000, baseInc:7_000_000 },
 ];
 
 const baseBoosts = [
-    { id:"multitap", emoji:"👆", name:"Мультитап", nameEn:"Multitap", desc:"+1 за тап", descEn:"+1 per tap", baseCost:1000 },
-    { id:"powerup", emoji:"⚡", name:"Power+", nameEn:"Power+", desc:"+5K макс Power", descEn:"+5K max Power", baseCost:5000 },
-    { id:"pickaxe", emoji:"⛏", name:"Кирка PRO", nameEn:"Pickaxe PRO", desc:"+25 добычи", descEn:"+25 mining", baseCost:10000 },
-    { id:"luck", emoji:"🍀", name:"Удача", nameEn:"Luck", desc:"x2 алмазы", descEn:"x2 diamonds", baseCost:20000 },
-    { id:"crit", emoji:"💥", name:"Крит", nameEn:"Crit", desc:"10% x3 тап", descEn:"10% x3 tap", baseCost:50000 },
+    { id:"multitap", emoji:"👆", name:"Multitap", desc:"+1 per tap", baseCost:1000 },
+    { id:"powerup", emoji:"⚡", name:"Power+", desc:"+5K max Power", baseCost:5000 },
+    { id:"pickaxe", emoji:"⛏", name:"Pickaxe PRO", desc:"+25 mining", baseCost:10000 },
+    { id:"luck", emoji:"🍀", name:"Luck", desc:"x2 diamonds", baseCost:20000 },
+    { id:"crit", emoji:"💥", name:"Crit", desc:"10% x3 tap", baseCost:50000 },
 ];
 
 function assetInc(a) { const lvl = assetsOwned[a.id]||0; return lvl===0 ? 0 : Math.floor(a.baseInc * lvl * (1 + (lvl-1)*0.05)); }
 function boostCost(b) { const lvl = boostsOwned[b.id]||0; return Math.floor(b.baseCost * Math.pow(1.5, lvl)); }
-function assetName(a) { return lang==="ru" ? a.name : a.nameEn; }
-function boostName(b) { return lang==="ru" ? b.name : b.nameEn; }
-function boostDesc(b) { return lang==="ru" ? b.desc : b.descEn; }
 
-// --- TG ---
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); uid = tg.initDataUnsafe?.user?.id?.toString() || ""; }
 
 async function initUser() {
-    nickname = document.getElementById("nickInput").value || "Анон";
+    nickname = document.getElementById("nickInput").value || "Anon";
     const resp = await fetch(`${API}/user?uid=${uid}`);
     if (resp.ok) {
         loadFromServer(await resp.json());
         if (lastSeen && incomePerHour > 0) {
             const elapsed = (Date.now() - lastSeen) / 3600000;
             const earned = Math.floor(incomePerHour * elapsed);
-            if (earned > 0) {
-                balance += earned;
-                totalEarned += earned;
-                alert(`${t("offlineEarned")} ${fmt(earned)} BLOX`);
-            }
+            if (earned > 0) { balance += earned; totalEarned += earned; alert(`While away: +${fmt(earned)} BLOX`); }
         }
-    } else {
-        await saveToServer();
-    }
+    } else { await saveToServer(); }
     document.getElementById("overlay").classList.add("hidden");
     loaded = true;
-    updateAllUI();
-    renderAssets();
-    renderBoosts();
-    applyTheme();
-    updateAllTexts();
+    updateAllUI(); renderAssets(); renderBoosts(); applyTheme();
 }
 
 function loadFromServer(d) {
-    balance = d.balance||0; perTap = d.perTap||1; power = d.power||30000;
-    maxPower = d.maxPower||30000; powerCost = d.powerCost||10;
-    incomePerHour = d.incomePerHour||0; nickname = d.nickname||"Анон";
-    level = d.level||1; totalEarned = d.totalEarned||0;
-    assetsOwned = d.assets||{}; boostsOwned = d.boosts||{};
-    lastSeen = d.lastSeen||Date.now();
+    balance=d.balance||0; perTap=d.perTap||1; power=d.power||30000;
+    maxPower=d.maxPower||30000; powerCost=d.powerCost||10;
+    incomePerHour=d.incomePerHour||0; nickname=d.nickname||"Anon";
+    level=d.level||1; totalEarned=d.totalEarned||0;
+    assetsOwned=d.assets||{}; boostsOwned=d.boosts||{};
+    lastSeen=d.lastSeen||Date.now();
 }
 
 async function saveToServer() {
@@ -445,13 +330,6 @@ function applyTheme() {
     document.getElementById("tapBtn").style.boxShadow = `0 0 30px ${c}`;
 }
 
-function updateAllTexts() {
-    document.querySelectorAll("[data-key]").forEach(el => {
-        el.textContent = t(el.dataset.key);
-    });
-    document.getElementById("costLabel").textContent = "-"+powerCost;
-}
-
 function updateAllUI() {
     document.getElementById("bal").textContent = fmt(balance);
     document.getElementById("bigBal").textContent = fmt(balance);
@@ -461,46 +339,40 @@ function updateAllUI() {
     document.getElementById("incVal").textContent = fmt(incomePerHour);
     document.getElementById("costLabel").textContent = "-"+powerCost;
 
-    const lvl = levels[Math.min(level-1, levels.length-1)];
+    const idx = Math.min(level-1, 6);
     document.getElementById("lvlBadge").textContent = level;
-    document.getElementById("lvlName").textContent = t(lvl.name);
+    document.getElementById("lvlName").textContent = levelNames[idx] || "Legend";
     document.getElementById("lvlProgress").textContent = fmt(totalEarned);
     if (level > levels.length) {
         document.getElementById("lvlNext").textContent = "MAX";
         document.getElementById("lvlBar").style.width = "100%";
     } else {
-        document.getElementById("lvlNext").textContent = fmt(lvl.cost);
-        document.getElementById("lvlBar").style.width = Math.min(100, (totalEarned/lvl.cost)*100)+"%";
+        document.getElementById("lvlNext").textContent = fmt(levels[idx].cost);
+        document.getElementById("lvlBar").style.width = Math.min(100, (totalEarned/levels[idx].cost)*100)+"%";
     }
     applyTheme();
 }
 
-// --- Tap (Power тратится, но регенерится) ---
 document.getElementById("tapBtn").addEventListener("click", () => {
     if (power < powerCost) return;
     power -= powerCost;
     let gained = perTap;
     if ((boostsOwned["crit"]||0) > 0 && Math.random() < 0.1) gained *= 3;
-    balance += gained;
-    totalEarned += gained;
-    checkLvl();
-    updateAllUI();
+    balance += gained; totalEarned += gained;
+    checkLvl(); updateAllUI();
     if (navigator.vibrate) navigator.vibrate(5);
 });
 
 function checkLvl() {
     while (level <= levels.length && totalEarned >= levels[level-1].cost) {
         const l = levels[level-1];
-        maxPower = l.power;
-        power = maxPower;
-        powerCost = l.pCost;
+        maxPower = l.power; power = maxPower; powerCost = l.pCost;
         perTap = l.tapBase + (boostsOwned["multitap"]||0);
         level++;
         recalcIncome();
     }
 }
 
-// --- Assets ---
 function renderAssets() {
     const g = document.getElementById("assetsGrid");
     g.innerHTML = "";
@@ -511,10 +383,10 @@ function renderAssets() {
         const card = document.createElement("div");
         card.className = "card" + (lvl>0?" owned":"");
         card.innerHTML = `<div class="card-emoji">${a.emoji}</div>
-            <div class="card-name">${assetName(a)}</div>
-            <div class="card-stat">+${fmt(inc)}/ч</div>
-            <div class="card-price">${lvl>=MAX_LVL?"MAX":fmt(cost)+t("buyCost")}</div>
-            ${lvl>0?`<div class="card-lvl">Ур. ${lvl}/${MAX_LVL}</div>`:""}`;
+            <div class="card-name">${a.name}</div>
+            <div class="card-stat">+${fmt(inc)}/h</div>
+            <div class="card-price">${lvl>=MAX_LVL?"MAX":fmt(cost)+" BLOX"}</div>
+            ${lvl>0?`<div class="card-lvl">Lv. ${lvl}/${MAX_LVL}</div>`:""}`;
         if (lvl < MAX_LVL) card.addEventListener("click", () => buyAsset(a));
         g.appendChild(card);
     });
@@ -527,18 +399,11 @@ function buyAsset(a) {
     if (balance < cost) return;
     balance -= cost;
     assetsOwned[a.id] = lvl+1;
-    recalcIncome();
-    updateAllUI();
-    renderAssets();
-    saveToServer();
+    recalcIncome(); updateAllUI(); renderAssets(); saveToServer();
 }
 
-function recalcIncome() {
-    incomePerHour = 0;
-    assets.forEach(a => { incomePerHour += assetInc(a); });
-}
+function recalcIncome() { incomePerHour = 0; assets.forEach(a => { incomePerHour += assetInc(a); }); }
 
-// --- Boosts ---
 function renderBoosts() {
     const g = document.getElementById("boostsGrid");
     g.innerHTML = "";
@@ -548,10 +413,10 @@ function renderBoosts() {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `<div class="card-emoji">${b.emoji}</div>
-            <div class="card-name">${boostName(b)}</div>
-            <div class="card-stat">${boostDesc(b)}</div>
-            <div class="card-price">${cost?fmt(cost)+t("buyCost"):"MAX"}</div>
-            ${lvl>0?`<div class="card-lvl">Ур. ${lvl}/${MAX_LVL}</div>`:""}`;
+            <div class="card-name">${b.name}</div>
+            <div class="card-stat">${b.desc}</div>
+            <div class="card-price">${cost?fmt(cost)+" BLOX":"MAX"}</div>
+            ${lvl>0?`<div class="card-lvl">Lv. ${lvl}/${MAX_LVL}</div>`:""}`;
         if (lvl < MAX_LVL) card.addEventListener("click", () => buyBoost(b));
         g.appendChild(card);
     });
@@ -566,32 +431,20 @@ function buyBoost(b) {
     boostsOwned[b.id] = lvl+1;
     if (b.id==="multitap") perTap++;
     if (b.id==="powerup") { maxPower+=5000; power=maxPower; }
-    updateAllUI();
-    renderBoosts();
-    saveToServer();
+    updateAllUI(); renderBoosts(); saveToServer();
 }
 
-// --- Mining game ---
+// --- Mining ---
 let mineActive = false, mineScore = 0, diamonds = [], mineAnim = null;
 const canvas = document.getElementById("mineCanvas");
 const ctx = canvas.getContext("2d");
 
-function initMine() {
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = 320;
-}
-
+function initMine() { canvas.width = canvas.parentElement.clientWidth; canvas.height = 320; }
 function spawnDiamond() {
     const luck = (boostsOwned["luck"]||0)>0 ? 2 : 1;
     if (Math.random() > 0.03 * luck) return;
-    diamonds.push({
-        x: Math.random()*(canvas.width-30),
-        y: -30,
-        r: 12+Math.random()*8,
-        speed: 1+Math.random()*2,
-    });
+    diamonds.push({ x: Math.random()*(canvas.width-30), y: -30, r: 12+Math.random()*8, speed: 1+Math.random()*2 });
 }
-
 function drawMine() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="#0d0d0d"; ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -606,7 +459,6 @@ function drawMine() {
         ctx.closePath(); ctx.fill();
     });
 }
-
 function updateMine() { spawnDiamond(); diamonds.forEach(d=>d.y+=d.speed); diamonds=diamonds.filter(d=>d.y<canvas.height+50); }
 
 canvas.addEventListener("click", e => {
@@ -627,34 +479,27 @@ canvas.addEventListener("click", e => {
     }
 });
 
-function startMine() {
-    mineActive=true; mineScore=0; diamonds=[]; initMine();
-    document.getElementById("mineScore").textContent="💎 0";
-    function loop(){ if(!mineActive)return; updateMine(); drawMine(); mineAnim=requestAnimationFrame(loop); }
-    loop();
-}
+function startMine() { mineActive=true; mineScore=0; diamonds=[]; initMine(); document.getElementById("mineScore").textContent="💎 0";
+    function loop(){ if(!mineActive)return; updateMine(); drawMine(); mineAnim=requestAnimationFrame(loop); } loop(); }
 function stopMine() { mineActive=false; if(mineAnim)cancelAnimationFrame(mineAnim); }
 
 // --- Top ---
 async function loadTop() {
-    const r = await fetch(`${API}/top`);
-    const d = await r.json();
-    const l = document.getElementById("topList");
-    if(!d.length){ l.innerHTML=`<div class="text-center text-sm">${t("loading")}</div>`; return; }
-    l.innerHTML = d.map((u,i)=>`
-        <div class="top-row">
-            <div class="top-pos">#${i+1}</div>
-            <div class="top-name">${u.username}</div>
-            <div class="top-lvl">Ур.${u.level}</div>
-            <div class="top-bal">${fmt(u.balance)}</div>
-        </div>`).join("");
-}
-
-// --- Admin ---
-function adm(t) {
-    if (t==="bal"){ const v=parseInt(document.getElementById("admBal").value); if(!isNaN(v)) balance=v; }
-    if (t==="inc"){ const v=parseInt(document.getElementById("admInc").value); if(!isNaN(v)) incomePerHour=v; }
-    updateAllUI(); saveToServer();
+    try {
+        const r = await fetch(`${API}/top`);
+        const d = await r.json();
+        const l = document.getElementById("topList");
+        if (!d || !d.length) { l.innerHTML = "<div style='text-align:center;color:var(--text2);'>No players yet</div>"; return; }
+        l.innerHTML = d.map((u,i) => `
+            <div class="top-row">
+                <div class="top-pos">#${i+1}</div>
+                <div class="top-name">${u.username}</div>
+                <div class="top-lvl">Lv.${u.level}</div>
+                <div class="top-bal">${fmt(u.balance)} BLOX</div>
+            </div>`).join("");
+    } catch(e) {
+        document.getElementById("topList").innerHTML = "<div style='text-align:center;color:var(--red);'>Error loading top</div>";
+    }
 }
 
 // --- Tabs ---
@@ -678,33 +523,18 @@ if (uid) {
                 const earned = Math.floor(incomePerHour*hrs);
                 if (earned>0) { balance+=earned; totalEarned+=earned; }
             }
-            loaded=true; updateAllUI(); renderAssets(); renderBoosts(); applyTheme(); updateAllTexts();
+            loaded=true; updateAllUI(); renderAssets(); renderBoosts(); applyTheme();
         } else {
             document.getElementById("overlay").classList.remove("hidden");
         }
-    });
+    }).catch(() => document.getElementById("overlay").classList.remove("hidden"));
 } else {
     uid = "test_"+Date.now();
     document.getElementById("overlay").classList.remove("hidden");
 }
 
-// --- Intervals ---
-setInterval(() => {
-    if (incomePerHour>0&&loaded){
-        balance+=incomePerHour/360;
-        totalEarned+=incomePerHour/360;
-        checkLvl();
-        updateAllUI();
-        saveToServer();
-    }
-}, 10000);
-
-setInterval(() => {
-    if (power < maxPower) {
-        power = Math.min(maxPower, power + Math.ceil(maxPower/300));
-        updateAllUI();
-    }
-}, 1000);
+setInterval(() => { if (incomePerHour>0&&loaded){ balance+=incomePerHour/360; totalEarned+=incomePerHour/360; checkLvl(); updateAllUI(); saveToServer(); } }, 10000);
+setInterval(() => { if (power<maxPower){ power=Math.min(maxPower, power+Math.ceil(maxPower/300)); updateAllUI(); } }, 1000);
 </script>
 </body>
 </html>
