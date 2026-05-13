@@ -9,9 +9,8 @@
         :root {
             --bg: #060606;
             --surface: #0f0f0f;
-            --surface2: #181818;
+            --surface2: #1a1a1a;
             --border: #222;
-            --border-active: #333;
             --text: #f0f0f0;
             --text2: #888;
             --text3: #555;
@@ -25,7 +24,6 @@
             --radius-sm: 12px;
             --radius-xs: 8px;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            --transition: 0.15s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,7 +32,7 @@
             background: var(--bg);
             color: var(--text);
             font-family: var(--font);
-            padding: 16px 14px 100px;
+            padding: 20px 16px 100px;
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
@@ -42,88 +40,64 @@
             -webkit-font-smoothing: antialiased;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            max-width: 480px;
+            gap: 20px;
+            max-width: 440px;
             margin: 0 auto;
         }
 
-        /* Header bars */
-        .stats-row {
+        /* Header */
+        .header {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
-        .stat-chip {
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .balance-pill {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 30px;
-            padding: 8px 14px;
-            font-size: 12px;
+            padding: 10px 18px;
             font-weight: 600;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            flex: 1;
-            min-width: fit-content;
-            white-space: nowrap;
+            gap: 8px;
         }
-        .stat-chip .icon { font-size: 15px; }
-        .stat-chip .val { color: var(--text); }
-        .stat-chip .lbl { color: var(--text3); font-weight: 500; }
+        .balance-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
 
-        /* Disclaimer */
-        .disclaimer-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        /* Stats row */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
         }
-        .disclaimer-card {
+        .stat {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 22px;
-            text-align: center;
-            max-width: 360px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .disclaimer-card h2 { font-size: 22px; letter-spacing: -0.5px; }
-        .disclaimer-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
-        .disclaimer-card input {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            color: var(--text);
+            border-radius: var(--radius-sm);
             padding: 12px;
-            border-radius: var(--radius-xs);
-            font-size: 15px;
             text-align: center;
-            outline: none;
-            font-family: var(--font);
         }
-        .disclaimer-card input:focus { border-color: var(--accent); }
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 13px;
-            border-radius: var(--radius-xs);
+        .stat-val {
+            font-size: 16px;
             font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            font-family: var(--font);
-            transition: background var(--transition);
-            width: 100%;
         }
-        .btn-primary:active { background: var(--accent2); }
+        .stat-lbl {
+            font-size: 10px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
 
-        /* Level bar */
+        /* Level */
         .level-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -133,9 +107,9 @@
             align-items: center;
             gap: 14px;
         }
-        .level-badge {
-            width: 50px;
-            height: 50px;
+        .level-circle {
+            width: 48px;
+            height: 48px;
             background: var(--accent);
             border-radius: 50%;
             display: flex;
@@ -143,35 +117,35 @@
             justify-content: center;
             font-weight: 800;
             font-size: 18px;
-            flex-shrink: 0;
             color: #fff;
+            flex-shrink: 0;
         }
         .level-info { flex: 1; }
-        .level-title { font-weight: 700; font-size: 15px; }
+        .level-name { font-weight: 700; font-size: 15px; }
         .level-sub { font-size: 11px; color: var(--text2); }
-        .progress-bar {
+        .bar {
             height: 4px;
             background: var(--border);
             border-radius: 2px;
-            margin-top: 6px;
+            margin-top: 8px;
             overflow: hidden;
         }
-        .progress-fill {
+        .bar-fill {
             height: 100%;
             background: var(--accent);
             border-radius: 2px;
             transition: width 0.3s;
         }
 
-        /* Tap area */
-        .tap-section {
+        /* Tap */
+        .tap-area {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 10px 0;
         }
-        .blox-coin {
+        .coin {
             width: 120px;
             height: 120px;
             border-radius: 50%;
@@ -186,14 +160,14 @@
             transition: transform 0.06s, box-shadow 0.06s;
             position: relative;
         }
-        .blox-coin:active {
+        .coin:active {
             transform: scale(0.91);
             box-shadow: 0 0 60px 15px rgba(79,143,255,0.5);
         }
-        .blox-coin .power-cost {
+        .coin-cost {
             position: absolute;
-            bottom: -6px;
-            right: -6px;
+            bottom: -4px;
+            right: -4px;
             background: var(--surface2);
             border: 1px solid var(--border);
             color: var(--orange);
@@ -202,11 +176,18 @@
             border-radius: 20px;
             font-weight: 700;
         }
-        .balance-big { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; }
-        .per-tap { font-size: 13px; color: var(--text2); }
+        .big-balance {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+        .tap-sub {
+            font-size: 13px;
+            color: var(--text2);
+        }
 
-        /* Nav tabs */
-        .nav-tabs {
+        /* Tabs */
+        .tabs {
             display: flex;
             background: var(--surface);
             border-radius: var(--radius-sm);
@@ -216,7 +197,7 @@
             top: 0;
             z-index: 10;
         }
-        .nav-tab {
+        .tab {
             flex: 1;
             padding: 10px;
             text-align: center;
@@ -224,13 +205,65 @@
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
-            transition: background var(--transition);
             color: var(--text2);
+            transition: all 0.15s;
         }
-        .nav-tab.active { background: var(--surface2); color: var(--text); }
+        .tab.active {
+            background: var(--surface2);
+            color: var(--text);
+        }
 
         /* Cards */
+        .page { display: none; flex-direction: column; gap: 12px; }
+        .page.active { display: flex; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
         .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            cursor: pointer;
+            transition: border 0.15s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+        .card:active { border-color: #444; }
+        .card.owned { border-color: var(--green); }
+        .card-emoji { font-size: 34px; }
+        .card-name { font-weight: 600; font-size: 13px; }
+        .card-stat { font-size: 11px; color: var(--green); }
+        .card-price { font-size: 11px; color: var(--text2); }
+        .card-lvl { font-size: 10px; color: var(--accent); }
+
+        /* Mining */
+        .mine-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .mine-box:active { background: var(--surface2); }
+        .mine-icon { font-size: 64px; transition: transform 0.1s; }
+        .mine-title { font-weight: 700; font-size: 15px; }
+        .mine-sub { font-size: 12px; color: var(--text2); }
+
+        /* Admin */
+        .admin-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
@@ -239,453 +272,387 @@
             flex-direction: column;
             gap: 10px;
         }
-        .asset-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .asset-card {
+        .admin-card input {
             background: var(--surface2);
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: border var(--transition);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
+            color: var(--text);
+            padding: 12px;
+            border-radius: var(--radius-xs);
+            font-size: 14px;
+            outline: none;
+            font-family: var(--font);
         }
-        .asset-card:active { border-color: var(--border-active); }
-        .asset-card.owned { border-color: var(--green); }
-        .asset-emoji { font-size: 36px; }
-        .asset-name { font-weight: 600; font-size: 13px; }
-        .asset-income { font-size: 11px; color: var(--green); }
-        .asset-cost { font-size: 11px; color: var(--text2); }
-        .asset-lvl { font-size: 10px; color: var(--accent); }
+        .admin-card input:focus { border-color: var(--accent); }
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-xs);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: var(--font);
+            width: 100%;
+        }
+        .btn-blue { background: var(--accent); color: #fff; }
+        .btn-blue:active { background: var(--accent2); }
+        .btn-red { background: var(--red); color: #fff; }
+        .btn-red:active { background: #c0392b; }
 
-        /* Mining */
-        .mine-area {
+        /* Disclaimer */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .overlay-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 30px 20px;
+            padding: 28px 22px;
             text-align: center;
+            max-width: 340px;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 16px;
-            cursor: pointer;
-            transition: background var(--transition);
         }
-        .mine-area:active { background: var(--surface2); }
-        .mine-diamond { font-size: 70px; transition: transform 0.1s; }
-        .mine-diamond:active { transform: scale(0.85); }
-
-        /* Bottom nav */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0 20px;
-            z-index: 20;
-            max-width: 480px;
-            margin: 0 auto;
+        .overlay-card h2 { font-size: 22px; letter-spacing: -0.5px; }
+        .overlay-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+        .overlay-card input {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px;
+            border-radius: var(--radius-xs);
+            font-size: 15px;
+            text-align: center;
+            outline: none;
+            font-family: var(--font);
         }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text2);
-            transition: color var(--transition);
-            padding: 4px 12px;
-        }
-        .nav-item.active { color: var(--accent); }
-        .nav-item .nav-icon { font-size: 22px; }
+        .overlay-card input:focus { border-color: var(--accent); }
 
         .hidden { display: none !important; }
-        .flex-row { display: flex; gap: 8px; align-items: center; }
-        .text-green { color: var(--green); }
-        .text-accent { color: var(--accent); }
-        .text-sm { font-size: 11px; }
-        .mt-8 { margin-top: 8px; }
     </style>
 </head>
 <body>
 
     <!-- Disclaimer -->
-    <div class="disclaimer-overlay" id="disclaimer">
-        <div class="disclaimer-card">
+    <div class="overlay" id="disclaimer">
+        <div class="overlay-card">
             <h2>🟦 Blox</h2>
-            <p>Тапай, собирай блоксы, покупай активы и качай бусты.<br>Каждый тап тратит <b>Power</b>. Power восстанавливается со временем.<br>Активы приносят пассивный доход в час.</p>
-            <input type="text" id="nicknameInput" placeholder="Твой никнейм" maxlength="20">
-            <button class="btn-primary" onclick="startGame()">🚀 Начать</button>
+            <p>Тапай, собирай блоксы, покупай активы, качай бусты.<br>Power тратится за тап и восстанавливается.<br>Активы дают пассивный доход в час.</p>
+            <input type="text" id="nickInput" placeholder="Твой никнейм" maxlength="20">
+            <button class="btn btn-blue" onclick="startGame()">🚀 Начать</button>
         </div>
     </div>
 
-    <!-- Header stats -->
-    <div class="stats-row">
-        <div class="stat-chip"><span class="icon">👆</span><span class="lbl">За тап</span>&nbsp;<span class="val" id="perTapDisplay">1</span></div>
-        <div class="stat-chip"><span class="icon">⚡</span><span class="lbl">Power</span>&nbsp;<span class="val" id="powerDisplay">30000</span></div>
-        <div class="stat-chip"><span class="icon">⏱</span><span class="lbl">Доход/ч</span>&nbsp;<span class="val" id="incomeDisplay">0</span></div>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">🟦 Blox</div>
+        <div class="balance-pill">
+            <span class="balance-dot"></span>
+            <span id="balDisplay">0</span> BLOX
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl">За тап</div></div>
+        <div class="stat"><div class="stat-val" id="powerVal">30000</div><div class="stat-lbl">Power</div></div>
+        <div class="stat"><div class="stat-val" id="incomeVal">0</div><div class="stat-lbl">Доход/ч</div></div>
     </div>
 
     <!-- Level -->
-    <div class="level-card" id="levelCard">
-        <div class="level-badge" id="levelBadge">1</div>
+    <div class="level-card">
+        <div class="level-circle" id="lvlBadge">1</div>
         <div class="level-info">
-            <div class="level-title" id="levelTitle">Новичок</div>
-            <div class="level-sub"><span id="currentBlox">0</span> / <span id="nextLevel">1 000 000</span> BLOX</div>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+            <div class="level-name" id="lvlName">Новичок</div>
+            <div class="level-sub"><span id="lvlProgress">0</span> / <span id="lvlNext">1 000 000</span> BLOX</div>
+            <div class="bar"><div class="bar-fill" id="lvlBar" style="width:0%"></div></div>
         </div>
     </div>
 
     <!-- Tap -->
-    <div class="tap-section">
-        <div class="blox-coin" id="tapBtn">
-            B
-            <span class="power-cost">-10</span>
-        </div>
-        <div class="balance-big" id="balanceDisplay">0</div>
-        <div class="per-tap">+<span id="perTapVal">1</span> BLOX за тап</div>
+    <div class="tap-area">
+        <div class="coin" id="tapBtn">B<span class="coin-cost">-10</span></div>
+        <div class="big-balance" id="bigBalance">0</div>
+        <div class="tap-sub">+<span id="perTapSpan">1</span> BLOX за тап</div>
     </div>
 
     <!-- Tabs -->
-    <div class="nav-tabs" id="tabsRow">
-        <div class="nav-tab active" data-tab="assets">🏖 Активы</div>
-        <div class="nav-tab" data-tab="boosts">⚡ Бусты</div>
-        <div class="nav-tab" data-tab="mining">⛏ Майнинг</div>
+    <div class="tabs">
+        <div class="tab active" data-tab="assets">🏖 Активы</div>
+        <div class="tab" data-tab="boosts">⚡ Бусты</div>
+        <div class="tab" data-tab="mining">⛏ Майнинг</div>
+        <div class="tab" data-tab="admin">⚙ Админ</div>
     </div>
 
-    <!-- Assets tab -->
-    <div id="tab-assets">
-        <div class="asset-grid" id="assetsGrid"></div>
-    </div>
-
-    <!-- Boosts tab -->
-    <div id="tab-boosts" class="hidden">
-        <div class="card">
-            <div class="asset-grid" id="boostsGrid"></div>
+    <!-- Pages -->
+    <div class="page active" id="page-assets"><div class="card-grid" id="assetsGrid"></div></div>
+    <div class="page" id="page-boosts"><div class="card-grid" id="boostsGrid"></div></div>
+    <div class="page" id="page-mining">
+        <div class="mine-box" id="mineBox">
+            <div class="mine-icon" id="mineIcon">💎</div>
+            <div class="mine-title">Копай алмазы!</div>
+            <div class="mine-sub">+<span id="mineReward">50</span> BLOX за удар</div>
         </div>
     </div>
-
-    <!-- Mining tab -->
-    <div id="tab-mining" class="hidden">
-        <div class="mine-area" id="mineArea">
-            <div class="mine-diamond" id="mineDiamond">💎</div>
-            <div style="font-weight:700;">Копай алмазы!</div>
-            <div style="font-size:12px;color:var(--text2);">Нажимай на алмаз, чтобы добыть BLOX</div>
-            <div style="font-size:12px;color:var(--green);">+<span id="mineReward">50</span> BLOX за удар</div>
+    <div class="page" id="page-admin">
+        <div class="admin-card">
+            <div style="font-weight:700;">⚙ Админ-панель</div>
+            <input type="number" id="admBalance" placeholder="Баланс (число)">
+            <button class="btn btn-blue" onclick="admSetBalance()">Установить баланс</button>
+            <input type="number" id="admIncome" placeholder="Доход в час (число)">
+            <button class="btn btn-blue" onclick="admSetIncome()">Установить доход</button>
+            <input type="number" id="admPower" placeholder="Макс. Power (число)">
+            <button class="btn btn-blue" onclick="admSetPower()">Установить Power</button>
+            <button class="btn btn-red" onclick="admReset()">Сбросить всё</button>
         </div>
-    </div>
-
-    <!-- Bottom nav -->
-    <div class="bottom-nav">
-        <div class="nav-item active" data-page="main"><span class="nav-icon">🏠</span>Главная</div>
-        <div class="nav-item" data-page="admin"><span class="nav-icon">⚙</span>Админ</div>
-    </div>
-
-    <!-- Admin panel -->
-    <div id="adminPanel" class="hidden card" style="margin-top:8px;">
-        <div style="font-weight:700;">⚙ Админ-панель</div>
-        <input type="number" id="adminBalance" placeholder="Установить баланс" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--font);">
-        <button class="btn-primary" onclick="setAdminBalance()">Установить баланс</button>
-        <input type="number" id="adminIncome" placeholder="Доход в час" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--font);">
-        <button class="btn-primary" onclick="setAdminIncome()">Установить доход</button>
-        <button class="btn-primary" style="background:var(--red);" onclick="resetGame()">Сбросить всё</button>
     </div>
 
 <script>
-// --- Состояние ---
-let balance = 0;
-let perTap = 1;
-let power = 30000;
-let maxPower = 30000;
-let powerPerTap = 10;
-let incomePerHour = 0;
-let nickname = "";
-let level = 1;
-let totalEarned = 0;
-let assetsOwned = {};
-let boostsOwned = {};
+// --- State ---
+let balance = 0, perTap = 1, power = 30000, maxPower = 30000, powerCost = 10;
+let incomePerHour = 0, nickname = "", level = 1, totalEarned = 0;
+let assetsOwned = {}, boostsOwned = {};
 
-// Уровни
 const levels = [
-    { name: "Новичок", cost: 1_000_000, power: 30000, powerTap: 10, perTapBase: 1 },
-    { name: "Продвинутый", cost: 10_000_000, power: 50000, powerTap: 15, perTapBase: 3 },
-    { name: "Эксперт", cost: 50_000_000, power: 80000, powerTap: 20, perTapBase: 6 },
-    { name: "Мастер", cost: 100_000_000, power: 120000, powerTap: 25, perTapBase: 12 },
-    { name: "Грандмастер", cost: 250_000_000, power: 200000, powerTap: 30, perTapBase: 25 },
-    { name: "Элита", cost: 500_000_000, power: 350000, powerTap: 40, perTapBase: 50 },
-    { name: "Легенда", cost: 1_000_000_000, power: 500000, powerTap: 50, perTapBase: 100 },
+    { name:"Новичок", cost:1_000_000, power:30000, pCost:10, tapBase:1 },
+    { name:"Продвинутый", cost:10_000_000, power:50000, pCost:15, tapBase:3 },
+    { name:"Эксперт", cost:50_000_000, power:80000, pCost:20, tapBase:6 },
+    { name:"Мастер", cost:100_000_000, power:120000, pCost:25, tapBase:12 },
+    { name:"Грандмастер", cost:250_000_000, power:200000, pCost:30, tapBase:25 },
+    { name:"Элита", cost:500_000_000, power:350000, pCost:40, tapBase:50 },
+    { name:"Легенда", cost:1_000_000_000, power:500000, pCost:50, tapBase:100 },
 ];
 
-// Активы
 const assets = [
-    { id: "blox_beach", emoji: "🏖️", name: "Blox на пляже", cost: 50000, income: 100, lvlCost: 25000 },
-    { id: "blox_car", emoji: "🏎️", name: "Blox в тачке", cost: 150000, income: 350, lvlCost: 75000 },
-    { id: "blox_jet", emoji: "✈️", name: "Blox в джете", cost: 500000, income: 1000, lvlCost: 250000 },
-    { id: "blox_moon", emoji: "🌙", name: "Blox на Луне", cost: 2_000_000, income: 5000, lvlCost: 1_000_000 },
-    { id: "blox_crown", emoji: "👑", name: "Король Blox", cost: 10_000_000, income: 20000, lvlCost: 5_000_000 },
-    { id: "blox_galaxy", emoji: "🌌", name: "Blox в галактике", cost: 50_000_000, income: 100000, lvlCost: 25_000_000 },
+    { id:"beach", emoji:"🏖️", name:"Blox на пляже", cost:50000, inc:100, upg:25000 },
+    { id:"car", emoji:"🏎️", name:"Blox в тачке", cost:150000, inc:350, upg:75000 },
+    { id:"jet", emoji:"✈️", name:"Blox в джете", cost:500000, inc:1000, upg:250000 },
+    { id:"moon", emoji:"🌙", name:"Blox на Луне", cost:2_000_000, inc:5000, upg:1_000_000 },
+    { id:"crown", emoji:"👑", name:"Король Blox", cost:10_000_000, inc:20000, upg:5_000_000 },
+    { id:"galaxy", emoji:"🌌", name:"Галактика Blox", cost:50_000_000, inc:100000, upg:25_000_000 },
 ];
 
-// Бусты
 const boosts = [
-    { id: "multitap", emoji: "👆", name: "Мультитап", desc: "+1 за тап", cost: 1000, effect: (lvl) => { perTap += lvl; } },
-    { id: "power_boost", emoji: "⚡", name: "Power+", desc: "+5000 макс.Power", cost: 5000, effect: (lvl) => { maxPower += 5000 * lvl; power = maxPower; } },
-    { id: "mine_boost", emoji: "⛏", name: "Кирка PRO", desc: "+25 к добыче", cost: 10000, effect: (lvl) => { /* применяется в mining */ } },
+    { id:"multitap", emoji:"👆", name:"Мультитап", desc:"+1 за тап", cost:1000 },
+    { id:"powerup", emoji:"⚡", name:"Power+", desc:"+5K макс.Power", cost:5000 },
+    { id:"pickaxe", emoji:"⛏", name:"Кирка PRO", desc:"+25 к добыче", cost:10000 },
 ];
 
-// --- Инициализация ---
+// --- Init ---
 function startGame() {
-    nickname = document.getElementById("nicknameInput").value || "Анон";
+    nickname = document.getElementById("nickInput").value || "Анон";
     document.getElementById("disclaimer").classList.add("hidden");
-    loadState();
-    updateAllUI();
-    renderAssets();
-    renderBoosts();
+    load(); updateAll(); renderAssets(); renderBoosts();
 }
 
-function loadState() {
-    const saved = localStorage.getItem("blox_save");
-    if (saved) {
+function load() {
+    const s = localStorage.getItem("blox_save_v2");
+    if (s) {
         try {
-            const data = JSON.parse(saved);
-            balance = data.balance || 0;
-            perTap = data.perTap || 1;
-            power = data.power ?? 30000;
-            maxPower = data.maxPower ?? 30000;
-            powerPerTap = data.powerPerTap || 10;
-            incomePerHour = data.incomePerHour || 0;
-            nickname = data.nickname || "Анон";
-            level = data.level || 1;
-            totalEarned = data.totalEarned || 0;
-            assetsOwned = data.assetsOwned || {};
-            boostsOwned = data.boostsOwned || {};
+            const d = JSON.parse(s);
+            balance=d.balance??0; perTap=d.perTap??1; power=d.power??30000;
+            maxPower=d.maxPower??30000; powerCost=d.powerCost??10;
+            incomePerHour=d.incomePerHour??0; nickname=d.nickname??"Анон";
+            level=d.level??1; totalEarned=d.totalEarned??0;
+            assetsOwned=d.assetsOwned??{}; boostsOwned=d.boostsOwned??{};
         } catch(e) {}
     }
 }
 
-function saveState() {
-    localStorage.setItem("blox_save", JSON.stringify({
-        balance, perTap, power, maxPower, powerPerTap, incomePerHour,
+function save() {
+    localStorage.setItem("blox_save_v2", JSON.stringify({
+        balance, perTap, power, maxPower, powerCost, incomePerHour,
         nickname, level, totalEarned, assetsOwned, boostsOwned
     }));
 }
 
-// --- UI ---
-function updateAllUI() {
-    document.getElementById("balanceDisplay").textContent = formatNum(balance);
-    document.getElementById("perTapDisplay").textContent = perTap;
-    document.getElementById("perTapVal").textContent = perTap;
-    document.getElementById("powerDisplay").textContent = power;
-    document.getElementById("incomeDisplay").textContent = formatNum(incomePerHour);
-
-    // Level
-    const lvlData = levels[Math.min(level - 1, levels.length - 1)];
-    document.getElementById("levelBadge").textContent = level;
-    document.getElementById("levelTitle").textContent = lvlData.name;
-    document.getElementById("currentBlox").textContent = formatNum(totalEarned);
-
-    let nextCost = level <= levels.length ? levels[level - 1].cost : Infinity;
-    if (level > levels.length) {
-        document.getElementById("nextLevel").textContent = "MAX";
-        document.getElementById("progressFill").style.width = "100%";
-    } else {
-        document.getElementById("nextLevel").textContent = formatNum(nextCost);
-        document.getElementById("progressFill").style.width = Math.min(100, (totalEarned / nextCost) * 100) + "%";
-    }
-
-    saveState();
-}
-
-function formatNum(n) {
-    if (n >= 1e9) return (n / 1e9).toFixed(1) + "B";
-    if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+function fmt(n) {
+    if (n >= 1e9) return (n/1e9).toFixed(1)+"B";
+    if (n >= 1e6) return (n/1e6).toFixed(1)+"M";
+    if (n >= 1e3) return (n/1e3).toFixed(1)+"K";
     return Math.floor(n).toString();
 }
 
-// --- Тап ---
+function updateAll() {
+    document.getElementById("balDisplay").textContent = fmt(balance);
+    document.getElementById("bigBalance").textContent = fmt(balance);
+    document.getElementById("tapVal").textContent = perTap;
+    document.getElementById("perTapSpan").textContent = perTap;
+    document.getElementById("powerVal").textContent = power;
+    document.getElementById("incomeVal").textContent = fmt(incomePerHour);
+
+    const lvl = levels[Math.min(level-1, levels.length-1)];
+    document.getElementById("lvlBadge").textContent = level;
+    document.getElementById("lvlName").textContent = lvl.name;
+    document.getElementById("lvlProgress").textContent = fmt(totalEarned);
+    if (level > levels.length) {
+        document.getElementById("lvlNext").textContent = "MAX";
+        document.getElementById("lvlBar").style.width = "100%";
+    } else {
+        document.getElementById("lvlNext").textContent = fmt(lvl.cost);
+        document.getElementById("lvlBar").style.width = Math.min(100, (totalEarned/lvl.cost)*100)+"%";
+    }
+    save();
+}
+
+// --- Tap ---
 document.getElementById("tapBtn").addEventListener("click", () => {
-    if (power < powerPerTap) return;
-    power -= powerPerTap;
+    if (power < powerCost) return;
+    power -= powerCost;
     balance += perTap;
     totalEarned += perTap;
-    checkLevelUp();
-    updateAllUI();
+    checkLvl();
+    updateAll();
     if (navigator.vibrate) navigator.vibrate(5);
 });
 
-// --- Уровни ---
-function checkLevelUp() {
-    while (level <= levels.length && totalEarned >= levels[level - 1].cost) {
-        const lvl = levels[level - 1];
-        maxPower = lvl.power;
-        power = maxPower;
-        powerPerTap = lvl.powerTap;
-        perTap = lvl.perTapBase + (boostsOwned["multitap"] || 0);
+function checkLvl() {
+    while (level <= levels.length && totalEarned >= levels[level-1].cost) {
+        const l = levels[level-1];
+        maxPower = l.power; power = maxPower; powerCost = l.pCost;
+        perTap = l.tapBase + (boostsOwned["multitap"]||0);
         level++;
         recalcIncome();
     }
-    updateAllUI();
+    updateAll();
 }
 
-// --- Активы ---
+// --- Assets ---
 function renderAssets() {
-    const grid = document.getElementById("assetsGrid");
-    grid.innerHTML = "";
+    const g = document.getElementById("assetsGrid");
+    g.innerHTML = "";
     assets.forEach(a => {
-        const owned = assetsOwned[a.id] || 0;
+        const own = assetsOwned[a.id]||0;
         const card = document.createElement("div");
-        card.className = "asset-card" + (owned > 0 ? " owned" : "");
-        card.innerHTML = `
-            <div class="asset-emoji">${a.emoji}</div>
-            <div class="asset-name">${a.name}</div>
-            <div class="asset-income">+${formatNum(a.income * (owned || 1))}/ч</div>
-            <div class="asset-cost">${owned > 0 ? "Улучшить: " + formatNum(a.lvlCost) : formatNum(a.cost) + " BLOX"}</div>
-            ${owned > 0 ? `<div class="asset-lvl">Ур. ${owned}</div>` : ""}
-        `;
+        card.className = "card" + (own>0?" owned":"");
+        card.innerHTML = `<div class="card-emoji">${a.emoji}</div>
+            <div class="card-name">${a.name}</div>
+            <div class="card-stat">+${fmt(a.inc*(own||1))}/ч</div>
+            <div class="card-price">${own>0?"Улучшить: "+fmt(a.upg):fmt(a.cost)+" BLOX"}</div>
+            ${own>0?`<div class="card-lvl">Ур. ${own}</div>`:""}`;
         card.addEventListener("click", () => buyAsset(a));
-        grid.appendChild(card);
+        g.appendChild(card);
     });
 }
 
-function buyAsset(asset) {
-    const owned = assetsOwned[asset.id] || 0;
-    const cost = owned > 0 ? asset.lvlCost : asset.cost;
+function buyAsset(a) {
+    const own = assetsOwned[a.id]||0;
+    const cost = own>0 ? a.upg : a.cost;
     if (balance < cost) return alert("Недостаточно BLOX");
     balance -= cost;
-    assetsOwned[asset.id] = (owned || 0) + 1;
+    assetsOwned[a.id] = own+1;
     recalcIncome();
-    updateAllUI();
+    updateAll();
     renderAssets();
 }
 
 function recalcIncome() {
     incomePerHour = 0;
-    assets.forEach(a => {
-        const owned = assetsOwned[a.id] || 0;
-        if (owned > 0) incomePerHour += a.income * owned;
-    });
+    assets.forEach(a => { const o = assetsOwned[a.id]||0; if(o>0) incomePerHour += a.inc*o; });
 }
 
-// --- Бусты ---
+// --- Boosts ---
 function renderBoosts() {
-    const grid = document.getElementById("boostsGrid");
-    grid.innerHTML = "";
+    const g = document.getElementById("boostsGrid");
+    g.innerHTML = "";
     boosts.forEach(b => {
-        const lvl = boostsOwned[b.id] || 0;
+        const lvl = boostsOwned[b.id]||0;
         const card = document.createElement("div");
-        card.className = "asset-card";
-        card.innerHTML = `
-            <div class="asset-emoji">${b.emoji}</div>
-            <div class="asset-name">${b.name}</div>
-            <div class="asset-income">${b.desc}</div>
-            <div class="asset-cost">${formatNum(b.cost)} BLOX</div>
-            ${lvl > 0 ? `<div class="asset-lvl">Ур. ${lvl}</div>` : ""}
-        `;
+        card.className = "card";
+        card.innerHTML = `<div class="card-emoji">${b.emoji}</div>
+            <div class="card-name">${b.name}</div>
+            <div class="card-stat">${b.desc}</div>
+            <div class="card-price">${fmt(b.cost)} BLOX</div>
+            ${lvl>0?`<div class="card-lvl">Ур. ${lvl}</div>`:""}`;
         card.addEventListener("click", () => buyBoost(b));
-        grid.appendChild(card);
+        g.appendChild(card);
     });
 }
 
-function buyBoost(boost) {
-    if (balance < boost.cost) return alert("Недостаточно BLOX");
-    balance -= boost.cost;
-    boostsOwned[boost.id] = (boostsOwned[boost.id] || 0) + 1;
-    boost.effect(1);
-    updateAllUI();
+function buyBoost(b) {
+    if (balance < b.cost) return alert("Недостаточно BLOX");
+    balance -= b.cost;
+    boostsOwned[b.id] = (boostsOwned[b.id]||0)+1;
+    if (b.id==="multitap") perTap++;
+    if (b.id==="powerup") { maxPower+=5000; power=maxPower; }
+    updateAll();
     renderBoosts();
 }
 
-// --- Майнинг ---
-document.getElementById("mineArea").addEventListener("click", () => {
-    let reward = 50 + (boostsOwned["mine_boost"] || 0) * 25;
-    balance += reward;
-    totalEarned += reward;
-    document.getElementById("mineReward").textContent = reward;
-    checkLevelUp();
-    updateAllUI();
-    document.getElementById("mineDiamond").style.transform = "scale(0.8)";
-    setTimeout(() => document.getElementById("mineDiamond").style.transform = "scale(1)", 100);
+// --- Mining ---
+document.getElementById("mineBox").addEventListener("click", () => {
+    let rew = 50 + (boostsOwned["pickaxe"]||0)*25;
+    balance += rew;
+    totalEarned += rew;
+    document.getElementById("mineReward").textContent = rew;
+    checkLvl();
+    updateAll();
+    const icon = document.getElementById("mineIcon");
+    icon.style.transform = "scale(0.8)";
+    setTimeout(() => icon.style.transform = "scale(1)", 100);
     if (navigator.vibrate) navigator.vibrate(10);
 });
 
-// --- Табы ---
-document.querySelectorAll(".nav-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-        document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        document.getElementById("tab-assets").classList.add("hidden");
-        document.getElementById("tab-boosts").classList.add("hidden");
-        document.getElementById("tab-mining").classList.add("hidden");
-        document.getElementById("tab-" + tab.dataset.tab).classList.remove("hidden");
+// --- Tabs ---
+document.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        t.classList.add("active");
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById("page-"+t.dataset.tab).classList.add("active");
     });
 });
 
-// --- Нижняя навигация ---
-document.querySelectorAll(".bottom-nav .nav-item").forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelectorAll(".bottom-nav .nav-item").forEach(i => i.classList.remove("active"));
-        item.classList.add("active");
-        if (item.dataset.page === "admin") {
-            document.getElementById("adminPanel").classList.toggle("hidden");
-        } else {
-            document.getElementById("adminPanel").classList.add("hidden");
-        }
-    });
-});
-
-// --- Админ ---
-function setAdminBalance() {
-    const val = parseInt(document.getElementById("adminBalance").value);
-    if (!isNaN(val)) { balance = val; updateAllUI(); }
+// --- Admin ---
+function admSetBalance() {
+    const v = parseInt(document.getElementById("admBalance").value);
+    if (!isNaN(v)) { balance = v; updateAll(); }
 }
-function setAdminIncome() {
-    const val = parseInt(document.getElementById("adminIncome").value);
-    if (!isNaN(val)) { incomePerHour = val; updateAllUI(); }
+function admSetIncome() {
+    const v = parseInt(document.getElementById("admIncome").value);
+    if (!isNaN(v)) { incomePerHour = v; updateAll(); }
 }
-function resetGame() {
-    localStorage.clear();
-    location.reload();
+function admSetPower() {
+    const v = parseInt(document.getElementById("admPower").value);
+    if (!isNaN(v)) { maxPower = v; power = v; updateAll(); }
+}
+function admReset() {
+    if (confirm("Сбросить всё?")) { localStorage.clear(); location.reload(); }
 }
 
-// --- Пассивный доход (каждые 10 сек) ---
+// --- Passive income ---
 setInterval(() => {
     if (incomePerHour > 0) {
-        balance += incomePerHour / 360;
-        totalEarned += incomePerHour / 360;
-        checkLevelUp();
-        updateAllUI();
+        balance += incomePerHour/360;
+        totalEarned += incomePerHour/360;
+        checkLvl();
+        updateAll();
     }
 }, 10000);
 
-// --- Восстановление Power (каждую секунду) ---
+// --- Power regen ---
 setInterval(() => {
     if (power < maxPower) {
-        power = Math.min(maxPower, power + Math.ceil(maxPower / 300));
-        updateAllUI();
+        power = Math.min(maxPower, power + Math.ceil(maxPower/300));
+        updateAll();
     }
 }, 1000);
 
-// Telegram WebApp
+// --- TG ---
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); }
 
-updateAllUI();
+updateAll();
+renderAssets();
+renderBoosts();
 </script>
 </body>
 </html>
