@@ -281,6 +281,25 @@ function boostCost(b) { const lvl = boostsOwned[b.id]||0; return Math.floor(b.ba
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); uid = tg.initDataUnsafe?.user?.id?.toString() || ""; }
 
+// Мгновенное сохранение (без дебаунса)
+async function saveToServer() {
+    if (!uid || !loaded || uid.startsWith("test_")) return;
+    lastSeen = Date.now();
+    try {
+        await fetch(`${API}/save`, {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({
+                uid, balance, perTap, power, maxPower, powerCost,
+                incomePerHour, nickname, level, totalEarned,
+                assets: assetsOwned, boosts: boostsOwned, lastSeen
+            })
+        });
+    } catch(e) {
+        console.log("Save failed:", e);
+    }
+}
+
 async function initUser() {
     nickname = document.getElementById("nickInput").value || "Anon";
     const resp = await fetch(`${API}/user?uid=${uid}`);
@@ -289,9 +308,11 @@ async function initUser() {
         if (lastSeen && incomePerHour > 0) {
             const elapsed = (Date.now() - lastSeen) / 3600000;
             const earned = Math.floor(incomePerHour * elapsed);
-            if (earned > 0) { balance += earned; totalEarned += earned; alert(`While away: +${fmt(earned)} BLOX`); }
+            if (earned > 0) { balance += earned; totalEarned += earned; }
         }
-    } else { await saveToServer(); }
+    } else {
+        await saveToServer();
+    }
     document.getElementById("overlay").classList.add("hidden");
     loaded = true;
     updateAllUI(); renderAssets(); renderBoosts(); applyTheme();
@@ -304,13 +325,6 @@ function loadFromServer(d) {
     level=d.level||1; totalEarned=d.totalEarned||0;
     assetsOwned=d.assets||{}; boostsOwned=d.boosts||{};
     lastSeen=d.lastSeen||Date.now();
-}
-
-async function saveToServer() {
-    if (!uid || !loaded) return;
-    lastSeen = Date.now();
-    await fetch(`${API}/save`, { method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ uid, balance, perTap, power, maxPower, powerCost, incomePerHour, nickname, level, totalEarned, assets:assetsOwned, boosts:boostsOwned, lastSeen }) });
 }
 
 function fmt(n) {
@@ -353,6 +367,7 @@ function updateAllUI() {
     applyTheme();
 }
 
+// --- TAP с мгновенным сохранением ---
 document.getElementById("tapBtn").addEventListener("click", () => {
     if (power < powerCost) return;
     power -= powerCost;
@@ -360,7 +375,19 @@ document.getElementById("tapBtn").addEventListener("click", () => {
     if ((boostsOwned["crit"]||0) > 0 && Math.random() < 0.1) gained *= 3;
     balance += gained; totalEarned += gained;
     checkLvl(); updateAllUI();
+    saveToServer();
     if (navigator.vibrate) navigator.vibrate(5);
+});
+
+// Сохранение при закрытии через Telegram API
+if (tg) {
+    tg.onEvent("viewportChanged", () => {
+        if (tg.viewportHeight === 0) saveToServer();
+    });
+}
+window.addEventListener("beforeunload", () => saveToServer());
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) saveToServer();
 });
 
 function checkLvl() {
@@ -399,7 +426,8 @@ function buyAsset(a) {
     if (balance < cost) return;
     balance -= cost;
     assetsOwned[a.id] = lvl+1;
-    recalcIncome(); updateAllUI(); renderAssets(); saveToServer();
+    recalcIncome(); updateAllUI(); renderAssets();
+    saveToServer();
 }
 
 function recalcIncome() { incomePerHour = 0; assets.forEach(a => { incomePerHour += assetInc(a); }); }
@@ -431,7 +459,8 @@ function buyBoost(b) {
     boostsOwned[b.id] = lvl+1;
     if (b.id==="multitap") perTap++;
     if (b.id==="powerup") { maxPower+=5000; power=maxPower; }
-    updateAllUI(); renderBoosts(); saveToServer();
+    updateAllUI(); renderBoosts();
+    saveToServer();
 }
 
 // --- Mining ---
@@ -472,7 +501,8 @@ canvas.addEventListener("click", e => {
             const rew = 50+(boostsOwned["pickaxe"]||0)*25;
             balance+=rew; totalEarned+=rew;
             document.getElementById("mineScore").textContent="💎 "+mineScore;
-            checkLvl(); updateAllUI(); saveToServer();
+            checkLvl(); updateAllUI();
+            saveToServer();
             if (navigator.vibrate) navigator.vibrate(8);
             break;
         }
@@ -514,7 +544,7 @@ document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () =>
 }));
 
 // --- Init ---
-if (uid) {
+if (uid && !uid.startsWith("test_")) {
     fetch(`${API}/user?uid=${uid}`).then(async r => {
         if (r.ok) {
             loadFromServer(await r.json());
@@ -529,7 +559,7 @@ if (uid) {
         }
     }).catch(() => document.getElementById("overlay").classList.remove("hidden"));
 } else {
-    uid = "test_"+Date.now();
+    if (!uid) uid = "test_"+Date.now();
     document.getElementById("overlay").classList.remove("hidden");
 }
 
