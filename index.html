@@ -7,18 +7,20 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg: #060606;
-            --surface: #0f0f0f;
-            --surface2: #1a1a1a;
-            --border: #222;
-            --text: #f0f0f0;
-            --text2: #888;
+            --bg: #050505;
+            --surface: #0d0d0d;
+            --surface2: #171717;
+            --border: #1f1f1f;
+            --text: #eee;
+            --text2: #999;
             --text3: #555;
             --accent: #4f8fff;
+            --accent-glow: rgba(79,143,255,0.4);
             --green: #2ecc71;
             --red: #e74c3c;
             --orange: #f39c12;
-            --radius: 18px;
+            --gold: #f1c40f;
+            --radius: 16px;
             --radius-sm: 12px;
             --radius-xs: 8px;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -30,195 +32,233 @@
             background: var(--bg);
             color: var(--text);
             font-family: var(--font);
-            padding: 20px 16px 100px;
+            padding: 16px 14px 40px;
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
+            -webkit-font-smoothing: antialiased;
             max-width: 440px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: background 0.5s;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
         }
-        .logo { font-size: 22px; font-weight: 700; }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
         .bal-pill {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 30px;
-            padding: 10px 18px;
+            padding: 9px 16px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
-        .bal-dot { width: 9px; height: 9px; background: var(--accent); border-radius: 50%; }
+        .bal-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
 
+        /* Stats */
         .stats-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 7px;
         }
         .stat-box {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 12px;
+            padding: 10px 8px;
             text-align: center;
         }
-        .stat-val { font-size: 16px; font-weight: 700; }
-        .stat-lbl { font-size: 10px; color: var(--text3); }
+        .stat-val { font-size: 15px; font-weight: 700; }
+        .stat-lbl { font-size: 10px; color: var(--text3); margin-top: 1px; }
 
+        /* Level */
         .level-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 14px 16px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
         }
         .lvl-circle {
-            width: 46px; height: 46px;
-            background: var(--accent);
+            width: 44px; height: 44px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0;
+            font-weight: 800; font-size: 16px; color: #fff; flex-shrink: 0;
+            transition: background 0.4s, box-shadow 0.4s;
         }
         .lvl-info { flex: 1; }
         .lvl-name { font-weight: 700; font-size: 14px; }
         .lvl-sub { font-size: 11px; color: var(--text2); }
-        .bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
+        .bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 5px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s, background 0.4s; }
 
+        /* Tap */
         .tap-area {
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            margin-bottom: 20px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 8px 0 4px;
         }
+        .coin-wrapper { position: relative; }
         .coin {
-            width: 120px; height: 120px; border-radius: 50%;
-            background: var(--accent);
+            width: 110px; height: 110px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 56px; font-weight: 900; color: #fff;
+            font-size: 50px; font-weight: 900; color: #fff;
             cursor: pointer; position: relative;
-            transition: transform 0.06s, box-shadow 0.06s;
+            transition: transform 0.06s, box-shadow 0.06s, background 0.4s;
+            z-index: 2;
         }
-        .coin:active { transform: scale(0.91); box-shadow: 0 0 60px 15px rgba(79,143,255,0.5); }
+        .coin:active { transform: scale(0.91); }
+        .coin-particles {
+            position: absolute; inset: -20px; pointer-events: none; z-index: 1;
+        }
+        .particle {
+            position: absolute; width: 6px; height: 6px; border-radius: 50%;
+            animation: pop 0.5s ease-out forwards;
+        }
+        @keyframes pop {
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+        }
         .coin-cost {
-            position: absolute; bottom: -4px; right: -4px;
+            position: absolute; bottom: -2px; right: -2px;
             background: var(--surface2); border: 1px solid var(--border);
-            color: var(--orange); font-size: 10px; padding: 3px 7px;
-            border-radius: 20px; font-weight: 700;
+            color: var(--orange); font-size: 10px; padding: 2px 6px;
+            border-radius: 20px; font-weight: 700; z-index: 3;
         }
-        .big-bal { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; }
-        .tap-sub { font-size: 13px; color: var(--text2); }
+        .big-bal { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
+        .tap-sub { font-size: 12px; color: var(--text2); }
 
         /* Tabs */
         .tabs {
             display: flex; background: var(--surface); border-radius: var(--radius-sm);
-            padding: 4px; gap: 4px; position: sticky; top: 0; z-index: 10; margin-bottom: 16px;
+            padding: 3px; gap: 3px; position: sticky; top: 0; z-index: 10;
             flex-wrap: wrap;
         }
         .tab {
-            flex: 1; padding: 9px 6px; text-align: center; border-radius: 10px;
-            font-weight: 600; font-size: 12px; cursor: pointer; color: var(--text2);
-            transition: all 0.15s; white-space: nowrap; min-width: 50px;
+            flex: 1; padding: 8px 4px; text-align: center; border-radius: 10px;
+            font-weight: 600; font-size: 11px; cursor: pointer; color: var(--text2);
+            transition: all 0.15s; white-space: nowrap; min-width: 45px;
         }
         .tab.active { background: var(--surface2); color: var(--text); }
 
-        .page { display: none; flex-direction: column; gap: 12px; }
+        .page { display: none; flex-direction: column; gap: 10px; }
         .page.active { display: flex; }
 
-        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .card {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 14px; cursor: pointer;
-            text-align: center; display: flex; flex-direction: column; gap: 5px; align-items: center;
+            border-radius: var(--radius-sm); padding: 12px; cursor: pointer;
+            text-align: center; display: flex; flex-direction: column; gap: 4px; align-items: center;
             transition: border 0.15s;
         }
         .card:active { border-color: #444; }
         .card.owned { border-color: var(--green); }
-        .card-emoji { font-size: 32px; }
-        .card-name { font-weight: 600; font-size: 13px; }
-        .card-stat { font-size: 11px; color: var(--green); }
-        .card-price { font-size: 11px; color: var(--text2); }
-        .card-lvl { font-size: 10px; color: var(--accent); }
+        .card-emoji { font-size: 30px; }
+        .card-name { font-weight: 600; font-size: 12px; }
+        .card-stat { font-size: 10px; color: var(--green); }
+        .card-price { font-size: 10px; color: var(--text2); }
+        .card-lvl { font-size: 9px; color: var(--accent); }
 
-        .mine-box {
+        /* Mining game */
+        .mine-canvas-wrap {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 30px; text-align: center;
-            cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px;
+            border-radius: var(--radius); overflow: hidden; position: relative;
         }
-        .mine-box:active { background: var(--surface2); }
-        .mine-icon { font-size: 60px; transition: transform 0.1s; }
-        .mine-title { font-weight: 700; font-size: 15px; }
-        .mine-sub { font-size: 12px; color: var(--text2); }
+        canvas { display: block; width: 100%; height: 300px; cursor: pointer; }
+        .mine-score {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.7); color: var(--gold); padding: 4px 12px;
+            border-radius: 20px; font-weight: 700; font-size: 14px;
+        }
 
         /* Top */
-        .top-list { display: flex; flex-direction: column; gap: 6px; }
+        .top-list { display: flex; flex-direction: column; gap: 5px; }
         .top-row {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 12px 14px;
+            border-radius: var(--radius-sm); padding: 11px 13px;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .top-pos { font-weight: 800; font-size: 16px; color: var(--accent); width: 30px; }
-        .top-name { font-weight: 600; font-size: 14px; flex: 1; }
-        .top-bal { font-size: 13px; color: var(--text2); }
-        .top-lvl { font-size: 11px; color: var(--accent); margin-left: 8px; }
+        .top-pos { font-weight: 800; font-size: 15px; color: var(--accent); width: 28px; }
+        .top-name { font-weight: 600; font-size: 13px; flex: 1; }
+        .top-bal { font-size: 12px; color: var(--text2); }
+        .top-lvl { font-size: 10px; color: var(--accent); margin-left: 6px; }
 
-        .hidden { display: none !important; }
+        /* Admin */
+        .admin-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 14px;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .admin-card input {
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--text); padding: 10px; border-radius: var(--radius-xs);
+            font-size: 13px; outline: none; font-family: var(--font);
+        }
+        .btn {
+            padding: 10px; border: none; border-radius: var(--radius-xs);
+            font-weight: 700; font-size: 13px; cursor: pointer; font-family: var(--font);
+            width: 100%;
+        }
+        .btn-blue { background: var(--accent); color: #fff; }
+        .btn-blue:active { opacity: 0.85; }
+        .btn-red { background: var(--red); color: #fff; }
+        .btn-red:active { opacity: 0.85; }
+
+        /* Overlay */
         .overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 999;
             display: flex; align-items: center; justify-content: center; padding: 20px;
         }
         .overlay-card {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 28px 22px; text-align: center;
-            max-width: 340px; width: 100%; display: flex; flex-direction: column; gap: 16px;
+            border-radius: var(--radius); padding: 26px 20px; text-align: center;
+            max-width: 330px; width: 100%; display: flex; flex-direction: column; gap: 14px;
         }
-        .overlay-card h2 { font-size: 22px; }
-        .overlay-card p { font-size: 13px; color: var(--text2); line-height: 1.5; }
+        .overlay-card h2 { font-size: 21px; }
+        .overlay-card p { font-size: 12px; color: var(--text2); line-height: 1.4; }
         .overlay-card input {
             background: var(--surface2); border: 1px solid var(--border);
-            color: var(--text); padding: 12px; border-radius: var(--radius-xs);
-            font-size: 15px; text-align: center; outline: none; font-family: var(--font);
+            color: var(--text); padding: 11px; border-radius: var(--radius-xs);
+            font-size: 14px; text-align: center; outline: none; font-family: var(--font);
         }
-        .btn {
-            padding: 12px; border: none; border-radius: var(--radius-xs);
-            font-weight: 700; font-size: 14px; cursor: pointer; font-family: var(--font); width: 100%;
-        }
-        .btn-blue { background: var(--accent); color: #fff; }
-        .btn-blue:active { opacity: 0.85; }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+    <!-- Overlay -->
     <div class="overlay hidden" id="overlay">
         <div class="overlay-card">
             <h2>🟦 Blox</h2>
-            <p>Твой прогресс сохраняется на сервере.<br>Введи никнейм (только один раз).</p>
+            <p>Прогресс сохраняется навсегда.<br>Введи никнейм.</p>
             <input type="text" id="nickInput" placeholder="Никнейм" maxlength="20">
             <button class="btn btn-blue" onclick="initUser()">🚀 Войти</button>
         </div>
     </div>
 
+    <!-- Header -->
     <div class="header">
         <div class="logo">🟦 Blox</div>
         <div class="bal-pill"><span class="bal-dot"></span><span id="bal">0</span> BLOX</div>
     </div>
 
-    <!-- Главная: статы + уровень + тап -->
+    <!-- Main page -->
     <div id="page-main" class="page active">
         <div class="stats-row">
             <div class="stat-box"><div class="stat-val" id="tapVal">1</div><div class="stat-lbl">За тап</div></div>
-            <div class="stat-box"><div class="stat-val" id="powerVal">30000</div><div class="stat-lbl">Power</div></div>
+            <div class="stat-box"><div class="stat-val" id="powerVal">30K</div><div class="stat-lbl">Power</div></div>
             <div class="stat-box"><div class="stat-val" id="incVal">0</div><div class="stat-lbl">Доход/ч</div></div>
         </div>
         <div class="level-card">
@@ -230,32 +270,49 @@
             </div>
         </div>
         <div class="tap-area">
-            <div class="coin" id="tapBtn">B<span class="coin-cost" id="costLabel">-10</span></div>
+            <div class="coin-wrapper">
+                <div class="coin-particles" id="particles"></div>
+                <div class="coin" id="tapBtn">B<span class="coin-cost" id="costLabel">-10</span></div>
+            </div>
             <div class="big-bal" id="bigBal">0</div>
             <div class="tap-sub">+<span id="perTapSpan">1</span> BLOX за тап</div>
         </div>
     </div>
 
-    <!-- Табы -->
-    <div class="tabs" id="tabs">
+    <!-- Tabs -->
+    <div class="tabs">
         <div class="tab active" data-page="main">🏠 Главная</div>
         <div class="tab" data-page="assets">🏖 Активы</div>
         <div class="tab" data-page="boosts">⚡ Бусты</div>
-        <div class="tab" data-page="mining">⛏ Майнинг</div>
+        <div class="tab" data-page="mining">⛏ Шахта</div>
         <div class="tab" data-page="top">🏆 Топ</div>
+        <div class="tab" data-page="admin">⚙ Админ</div>
     </div>
 
-    <!-- Страницы -->
+    <!-- Pages -->
     <div class="page" id="page-assets"><div class="card-grid" id="assetsGrid"></div></div>
     <div class="page" id="page-boosts"><div class="card-grid" id="boostsGrid"></div></div>
     <div class="page" id="page-mining">
-        <div class="mine-box" id="mineBox">
-            <div class="mine-icon" id="mineIcon">💎</div>
-            <div class="mine-title">Копай алмазы!</div>
-            <div class="mine-sub">+<span id="mineReward">50</span> BLOX за удар</div>
+        <div class="mine-canvas-wrap">
+            <canvas id="mineCanvas"></canvas>
+            <div class="mine-score" id="mineScore">💎 0</div>
         </div>
     </div>
     <div class="page" id="page-top"><div class="top-list" id="topList">Загрузка...</div></div>
+    <div class="page" id="page-admin">
+        <div class="admin-card">
+            <div style="font-weight:700;font-size:14px;">⚙ Админ-панель</div>
+            <input type="number" id="admBal" placeholder="Баланс">
+            <button class="btn btn-blue" onclick="admSet('balance')">Установить баланс</button>
+            <input type="number" id="admInc" placeholder="Доход в час">
+            <button class="btn btn-blue" onclick="admSet('income')">Установить доход</button>
+            <input type="number" id="admPow" placeholder="Макс Power">
+            <button class="btn btn-blue" onclick="admSet('power')">Установить Power</button>
+            <input type="number" id="admLvl" placeholder="Уровень (1-7)">
+            <button class="btn btn-blue" onclick="admSet('level')">Установить уровень</button>
+            <button class="btn btn-red" onclick="if(confirm('Сбросить всё?')){localStorage.clear();location.reload();}">Сброс</button>
+        </div>
+    </div>
 
 <script>
 // --- State ---
@@ -265,6 +322,14 @@ let incomePerHour = 0, nickname = "", level = 1, totalEarned = 0;
 let assetsOwned = {}, boostsOwned = {};
 let loaded = false;
 const API = "/api";
+
+const levelColors = [
+    "#4f8fff", "#5b9fff", "#6db0ff", "#82c0ff", "#9ad0ff", "#b5e0ff", "#d0f0ff"
+];
+const levelGlows = [
+    "rgba(79,143,255,0.4)", "rgba(91,159,255,0.45)", "rgba(109,176,255,0.5)",
+    "rgba(130,192,255,0.55)", "rgba(154,208,255,0.6)", "rgba(181,224,255,0.65)", "rgba(208,240,255,0.7)"
+];
 
 const levels = [
     { name:"Новичок", cost:1_000_000, power:30000, pCost:10, tapBase:1 },
@@ -283,12 +348,17 @@ const assets = [
     { id:"moon", emoji:"🌙", name:"Blox на Луне", cost:2_000_000, inc:5000, upg:1_000_000 },
     { id:"crown", emoji:"👑", name:"Король Blox", cost:10_000_000, inc:20000, upg:5_000_000 },
     { id:"galaxy", emoji:"🌌", name:"Галактика", cost:50_000_000, inc:100000, upg:25_000_000 },
+    { id:"rocket", emoji:"🚀", name:"Blox Ракета", cost:5_000_000, inc:8000, upg:2_500_000 },
+    { id:"diamond", emoji:"💎", name:"Алмазный Blox", cost:25_000_000, inc:50000, upg:12_000_000 },
+    { id:"whale", emoji:"🐋", name:"Blox Кит", cost:75_000_000, inc:150000, upg:35_000_000 },
+    { id:"universe", emoji:"🪐", name:"Вселенная Blox", cost:150_000_000, inc:300000, upg:75_000_000 },
 ];
 
 const baseBoosts = [
     { id:"multitap", emoji:"👆", name:"Мультитап", desc:"+1 за тап", baseCost:1000 },
     { id:"powerup", emoji:"⚡", name:"Power+", desc:"+5K макс.Power", baseCost:5000 },
     { id:"pickaxe", emoji:"⛏", name:"Кирка PRO", desc:"+25 к добыче", baseCost:10000 },
+    { id:"luck", emoji:"🍀", name:"Удача", desc:"x2 шанс алмаза", baseCost:20000 },
 ];
 
 function boostCost(b) {
@@ -296,34 +366,21 @@ function boostCost(b) {
     return Math.floor(b.baseCost * Math.pow(1.8, lvl));
 }
 
-// --- TG Init ---
+// --- TG ---
 const tg = window.Telegram?.WebApp;
-if (tg) {
-    tg.ready();
-    tg.expand();
-    uid = tg.initDataUnsafe?.user?.id?.toString() || "";
-}
+if (tg) { tg.ready(); tg.expand(); uid = tg.initDataUnsafe?.user?.id?.toString() || ""; }
 
 async function initUser() {
     nickname = document.getElementById("nickInput").value || "Анон";
-    // Пытаемся загрузить с сервера
     const resp = await fetch(`${API}/user?uid=${uid}`);
     if (resp.ok) {
-        const data = await resp.json();
-        if (data.nickname && data.nickname !== nickname) {
-            // уже есть ник
-        }
-        loadFromServer(data);
+        loadFromServer(await resp.json());
     } else {
-        // новый юзер — сохраняем
         await saveToServer();
     }
     document.getElementById("overlay").classList.add("hidden");
     loaded = true;
-    updateAll();
-    renderAssets();
-    renderBoosts();
-    loadTop();
+    updateAll(); renderAssets(); renderBoosts(); loadTop(); applyTheme();
 }
 
 function loadFromServer(data) {
@@ -360,12 +417,23 @@ function fmt(n) {
     return Math.floor(n).toString();
 }
 
+function applyTheme() {
+    const idx = Math.min(level-1, 6);
+    const color = levelColors[idx];
+    const glow = levelGlows[idx];
+    document.getElementById("lvlBadge").style.background = color;
+    document.getElementById("lvlBadge").style.boxShadow = `0 0 20px ${glow}`;
+    document.getElementById("lvlBar").style.background = color;
+    document.getElementById("tapBtn").style.background = color;
+    document.getElementById("tapBtn").style.boxShadow = `0 0 30px ${glow}`;
+}
+
 function updateAll() {
     document.getElementById("bal").textContent = fmt(balance);
     document.getElementById("bigBal").textContent = fmt(balance);
     document.getElementById("tapVal").textContent = perTap;
     document.getElementById("perTapSpan").textContent = perTap;
-    document.getElementById("powerVal").textContent = power;
+    document.getElementById("powerVal").textContent = fmt(power);
     document.getElementById("incVal").textContent = fmt(incomePerHour);
     document.getElementById("costLabel").textContent = "-"+powerCost;
 
@@ -380,16 +448,34 @@ function updateAll() {
         document.getElementById("lvlNext").textContent = fmt(lvl.cost);
         document.getElementById("lvlBar").style.width = Math.min(100, (totalEarned/lvl.cost)*100)+"%";
     }
+    applyTheme();
 }
 
-// --- Tap ---
-document.getElementById("tapBtn").addEventListener("click", () => {
+// --- Particles on tap ---
+function spawnParticles(x, y) {
+    const container = document.getElementById("particles");
+    const color = levelColors[Math.min(level-1, 6)];
+    for (let i = 0; i < 6; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.background = color;
+        p.style.left = "50%";
+        p.style.top = "50%";
+        p.style.setProperty("--dx", (Math.random()-0.5)*60+"px");
+        p.style.setProperty("--dy", (Math.random()-0.5)*60+"px");
+        container.appendChild(p);
+        setTimeout(() => p.remove(), 500);
+    }
+}
+
+document.getElementById("tapBtn").addEventListener("click", (e) => {
     if (power < powerCost) return;
     power -= powerCost;
     balance += perTap;
     totalEarned += perTap;
     checkLvl();
     updateAll();
+    spawnParticles();
     if (navigator.vibrate) navigator.vibrate(5);
 });
 
@@ -428,9 +514,7 @@ function buyAsset(a) {
     balance -= cost;
     assetsOwned[a.id] = own+1;
     recalcIncome();
-    updateAll();
-    renderAssets();
-    saveToServer();
+    updateAll(); renderAssets(); saveToServer();
 }
 
 function recalcIncome() {
@@ -464,31 +548,121 @@ function buyBoost(b) {
     boostsOwned[b.id] = (boostsOwned[b.id]||0)+1;
     if (b.id==="multitap") perTap++;
     if (b.id==="powerup") { maxPower+=5000; power=maxPower; }
-    updateAll();
-    renderBoosts();
-    saveToServer();
+    updateAll(); renderBoosts(); saveToServer();
 }
 
-// --- Mining ---
-document.getElementById("mineBox").addEventListener("click", () => {
-    let rew = 50 + (boostsOwned["pickaxe"]||0)*25;
-    balance += rew;
-    totalEarned += rew;
-    document.getElementById("mineReward").textContent = rew;
-    checkLvl();
-    updateAll();
-    saveToServer();
-    const icon = document.getElementById("mineIcon");
-    icon.style.transform = "scale(0.8)";
-    setTimeout(() => icon.style.transform = "scale(1)", 100);
-    if (navigator.vibrate) navigator.vibrate(10);
+// --- Mining game ---
+let mineActive = false;
+let mineScore = 0;
+let diamonds = [];
+let mineAnimId = null;
+const canvas = document.getElementById("mineCanvas");
+const ctx = canvas.getContext("2d");
+
+function initMining() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = 300;
+}
+
+function spawnDiamond() {
+    const luck = (boostsOwned["luck"]||0) > 0 ? 0.5 : 1;
+    if (Math.random() > 0.02 * luck) return;
+    diamonds.push({
+        x: Math.random() * (canvas.width - 30),
+        y: -30,
+        r: 12 + Math.random() * 8,
+        speed: 1 + Math.random() * 2,
+    });
+}
+
+function drawMining() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#0d0d0d";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    diamonds.forEach(d => {
+        ctx.fillStyle = "#4f8fff";
+        ctx.beginPath();
+        // Diamond shape
+        const x = d.x, y = d.y, r = d.r;
+        ctx.moveTo(x, y - r);
+        ctx.lineTo(x + r*0.6, y);
+        ctx.lineTo(x, y + r);
+        ctx.lineTo(x - r*0.6, y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "#a0d0ff";
+        ctx.beginPath();
+        ctx.moveTo(x, y - r*0.4);
+        ctx.lineTo(x + r*0.25, y);
+        ctx.lineTo(x, y + r*0.4);
+        ctx.lineTo(x - r*0.25, y);
+        ctx.closePath();
+        ctx.fill();
+    });
+}
+
+function updateMining() {
+    spawnDiamond();
+    diamonds.forEach(d => d.y += d.speed);
+    diamonds = diamonds.filter(d => d.y < canvas.height + 50);
+}
+
+canvas.addEventListener("click", (e) => {
+    if (!mineActive) return;
+    const rect = canvas.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = cx * scaleX;
+    const my = cy * scaleY;
+
+    for (let i = diamonds.length - 1; i >= 0; i--) {
+        const d = diamonds[i];
+        const dist = Math.sqrt((mx-d.x)**2 + (my-d.y)**2);
+        if (dist < d.r + 5) {
+            diamonds.splice(i, 1);
+            mineScore++;
+            const rew = 50 + (boostsOwned["pickaxe"]||0)*25;
+            balance += rew;
+            totalEarned += rew;
+            document.getElementById("mineScore").textContent = "💎 " + mineScore;
+            checkLvl();
+            updateAll();
+            saveToServer();
+            if (navigator.vibrate) navigator.vibrate(8);
+            break;
+        }
+    }
 });
+
+function startMining() {
+    mineActive = true;
+    mineScore = 0;
+    diamonds = [];
+    document.getElementById("mineScore").textContent = "💎 0";
+    initMining();
+    function loop() {
+        if (!mineActive) return;
+        updateMining();
+        drawMining();
+        mineAnimId = requestAnimationFrame(loop);
+    }
+    loop();
+}
+
+function stopMining() {
+    mineActive = false;
+    if (mineAnimId) cancelAnimationFrame(mineAnimId);
+}
 
 // --- Top ---
 async function loadTop() {
     const resp = await fetch(`${API}/top`);
     const data = await resp.json();
     const list = document.getElementById("topList");
+    if (!data.length) { list.innerHTML = "<div style='color:var(--text2);text-align:center;'>Пока никого</div>"; return; }
     list.innerHTML = data.map((u, i) => `
         <div class="top-row">
             <div class="top-pos">#${i+1}</div>
@@ -499,6 +673,15 @@ async function loadTop() {
     `).join("");
 }
 
+// --- Admin ---
+function admSet(type) {
+    if (type === "balance") { const v = parseInt(document.getElementById("admBal").value); if(!isNaN(v)) balance=v; }
+    if (type === "income") { const v = parseInt(document.getElementById("admInc").value); if(!isNaN(v)) incomePerHour=v; }
+    if (type === "power") { const v = parseInt(document.getElementById("admPow").value); if(!isNaN(v)){maxPower=v;power=v;} }
+    if (type === "level") { const v = parseInt(document.getElementById("admLvl").value); if(!isNaN(v)&&v>=1&&v<=7){level=v;totalEarned=levels[v-1].cost;} }
+    updateAll(); saveToServer();
+}
+
 // --- Tabs ---
 document.querySelectorAll(".tab").forEach(t => {
     t.addEventListener("click", () => {
@@ -506,52 +689,8 @@ document.querySelectorAll(".tab").forEach(t => {
         t.classList.add("active");
         document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
         const pageId = "page-"+t.dataset.page;
-        const pageEl = document.getElementById(pageId);
-        if (pageEl) pageEl.classList.add("active");
-        if (t.dataset.page === "top") loadTop();
-    });
-});
-
-// --- Start ---
-if (uid) {
-    // Пробуем загрузить
-    fetch(`${API}/user?uid=${uid}`).then(async r => {
-        if (r.ok) {
-            const d = await r.json();
-            loadFromServer(d);
-            loaded = true;
-            updateAll();
-            renderAssets();
-            renderBoosts();
-            loadTop();
-        } else {
-            document.getElementById("overlay").classList.remove("hidden");
-        }
-    });
-} else {
-    // Без TG — localhost для теста
-    uid = "test_" + Date.now();
-    document.getElementById("overlay").classList.remove("hidden");
-}
-
-// --- Passive income ---
-setInterval(() => {
-    if (incomePerHour > 0 && loaded) {
-        balance += incomePerHour/360;
-        totalEarned += incomePerHour/360;
-        checkLvl();
-        updateAll();
-        saveToServer();
-    }
-}, 10000);
-
-// --- Power regen ---
-setInterval(() => {
-    if (power < maxPower) {
-        power = Math.min(maxPower, power + Math.ceil(maxPower/300));
-        updateAll();
-    }
-}, 1000);
-</script>
-</body>
-</html>
+        const el = document.getElementById(pageId);
+        if (el) el.classList.add("active");
+        if (t.dataset.page === "mining") startMining();
+        else stopMining();
+        if (t.dataset.page === "top")
