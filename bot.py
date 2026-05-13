@@ -12,7 +12,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 PORT = int(os.getenv("PORT", 8000))
 RAILWAY_URL = os.getenv("RAILWAY_PUBLIC_DOMAIN", "localhost")
 DB_FILE = "database.json"
-ADMIN_IDS = [5203710686]  # ТВОЙ Telegram ID
+ADMIN_IDS = [123456789]  # ТВОЙ Telegram ID
 
 logging.basicConfig(level=logging.INFO)
 
@@ -75,6 +75,7 @@ async def admin_cmd(message: types.Message):
     text += "/admin — this panel\n"
     text += "/admin_set [user_id] [balance] — set balance\n"
     text += "/admin_del [user_id] — delete user\n"
+    text += "/admin_clear — clear all users\n"
 
     await message.answer(text, parse_mode="HTML")
 
@@ -109,6 +110,15 @@ async def admin_del(message: types.Message):
         await message.answer(f"✅ User {uid} deleted.")
     else:
         await message.answer("User not found.")
+
+@dp.message(Command("admin_clear"))
+async def admin_clear(message: types.Message):
+    if message.from_user.id not in ADMIN_IDS:
+        await message.answer("❌ Access denied.")
+        return
+    db["users"] = {}
+    save_db(db)
+    await message.answer("✅ All users cleared. Database is empty.")
 
 # --- API ---
 async def api_get_user(request):
